@@ -1,0 +1,14 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Feature Window Placeholder",
+  "description": "File Purpose: Placeholder schema for a future feature window contract. Owner Team: AIML Team with Backend Team collaboration. Brief Description: Reserved for aggregated feature-window data. TODO: Define feature fields, time boundaries, and validation rules after contract approval.",
+  "type": "object",
+  "additionalProperties": true,
+  "x-owner-team": "AIML Team with Backend Team collaboration",
+  "x-todo": [
+    "Define feature window fields.",
+    "Confirm aggregation boundaries.",
+    "Add validation rules after contract approval."
+  ]
+}
+

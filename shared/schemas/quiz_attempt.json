@@ -1,0 +1,14 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Quiz Attempt Placeholder",
+  "description": "File Purpose: Placeholder schema for a future quiz attempt contract. Owner Team: Frontend Team, Backend Team, and AIML Team. Brief Description: Reserved for quiz attempt events and outcomes. TODO: Define fields, scoring metadata, and validation rules after contract approval.",
+  "type": "object",
+  "additionalProperties": true,
+  "x-owner-team": "Frontend Team, Backend Team, and AIML Team",
+  "x-todo": [
+    "Define quiz attempt fields.",
+    "Confirm grading metadata requirements.",
+    "Add validation rules after contract approval."
+  ]
+}
+

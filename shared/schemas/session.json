@@ -1,0 +1,14 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Session Placeholder",
+  "description": "File Purpose: Placeholder schema for a future session contract. Owner Team: Frontend Team, Backend Team, and AIML Team. Brief Description: Reserved for learning session metadata. TODO: Define lifecycle fields, identity boundaries, and validation rules after contract approval.",
+  "type": "object",
+  "additionalProperties": true,
+  "x-owner-team": "Frontend Team, Backend Team, and AIML Team",
+  "x-todo": [
+    "Define session lifecycle fields.",
+    "Confirm identity and privacy boundaries.",
+    "Add validation rules after contract approval."
+  ]
+}
+

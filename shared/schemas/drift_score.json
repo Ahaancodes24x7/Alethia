@@ -1,0 +1,14 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Drift Score Placeholder",
+  "description": "File Purpose: Placeholder schema for a future drift score contract. Owner Team: AIML Team with Backend Team collaboration. Brief Description: Reserved for AIML drift scoring outputs. TODO: Define score fields, confidence metadata, and validation rules after contract approval.",
+  "type": "object",
+  "additionalProperties": true,
+  "x-owner-team": "AIML Team with Backend Team collaboration",
+  "x-todo": [
+    "Define drift score fields.",
+    "Confirm scoring metadata requirements.",
+    "Add validation rules after contract approval."
+  ]
+}
+

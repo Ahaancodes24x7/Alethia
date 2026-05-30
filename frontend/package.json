@@ -1,0 +1,14 @@
+{
+  "name": "alethia-frontend",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Placeholder package manifest for the ALETHIA frontend workspace. No application code is included.",
+  "purpose": "Reserve frontend package metadata for future development.",
+  "ownerTeam": "Frontend Team",
+  "todos": [
+    "Confirm frontend framework and package scripts.",
+    "Add dependencies only when implementation begins.",
+    "Keep this package minimal until UI work is approved."
+  ]
+}
+
