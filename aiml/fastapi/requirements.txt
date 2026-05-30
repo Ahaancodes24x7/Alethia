@@ -1,7 +1,0 @@
-# File Purpose: Placeholder dependency list for the future AIML FastAPI service.
-# Owner Team: AIML Team.
-# Description: Reserved for approved Python service dependencies.
-
-# TODO:
-# - Add dependencies only when AIML service implementation begins.
-
