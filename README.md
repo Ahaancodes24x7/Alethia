@@ -1,0 +1,286 @@
+# ALETHIA
+
+## Measuring Understanding, Not Just Activity
+
+### The Problem
+
+Every year, millions of students spend thousands of hours watching lectures, attending classes, reading notes, and solving assignments. Modern learning platforms can tell us how long a student watched a video, how many modules were completed, or how many quizzes were attempted. However, they fail to answer the most important question in education:
+
+**Did the student actually understand what they were learning?**
+
+A learner may complete a two-hour lecture and still remain confused about the core concept. This confusion often remains invisible until an examination, interview, coding assessment, or real-world application exposes the gap.
+
+Current educational technology measures engagement. ALETHIA measures understanding.
+
+---
+
+## What is ALETHIA?
+
+ALETHIA is an AI-powered Comprehension Intelligence Platform designed to identify cognitive drift, learning fatigue, attention loss, confidence mismatches, and comprehension breakdowns in real time.
+
+Instead of relying solely on assessment scores or completion rates, ALETHIA analyzes behavioral learning signals to estimate a learner's actual understanding while the learning process is taking place.
+
+The platform continuously observes how students interact with educational content and transforms those interactions into meaningful cognitive insights.
+
+Rather than asking:
+
+*"Did the student complete the lesson?"*
+
+ALETHIA asks:
+
+*"Did the student understand the lesson?"*
+
+---
+
+## The Core Idea
+
+A student begins a learning session by defining a goal.
+
+Examples include:
+
+* Learn Dynamic Programming
+* Practice Binary Trees
+* Study Operating Systems
+* Prepare for an upcoming examination
+* Complete a Machine Learning module
+
+ALETHIA then monitors the learning session through behavioral telemetry collected from educational resources such as YouTube, Coursera, NPTEL, GeeksForGeeks, LeetCode, university learning management systems, and other digital learning environments.
+
+During the session, ALETHIA analyzes:
+
+* Video rewinds and pauses
+* Scroll patterns and reading behavior
+* Typing dynamics and interaction rhythms
+* Focus changes and tab switching
+* Assessment performance
+* Confidence ratings
+* Hint dependency and external assistance patterns
+
+These signals collectively provide a behavioral fingerprint of the learner's cognitive state.
+
+---
+
+## How ALETHIA Works
+
+### Stage 1 — Behavioral Telemetry Collection
+
+ALETHIA collects learning interaction data from the browser environment while respecting user privacy.
+
+Examples include:
+
+* Video replay frequency
+* Pause density
+* Focus loss events
+* Scroll reversals
+* Typing consistency
+* Quiz attempts
+* Hint usage
+
+These raw events form the foundation of the cognitive analysis pipeline.
+
+---
+
+### Stage 2 — Feature Engineering Layer
+
+Raw behavioral events are transformed into structured learning indicators.
+
+ALETHIA currently generates a rich set of behavioral features including:
+
+* Video Rewind Density
+* Focus Loss Ratio
+* Attention Stability Score
+* Typing Instability
+* Confidence Gap
+* Productive Struggle Score
+* Hint Dependency
+* Learning Persistence Indicators
+
+This layer transforms millions of low-level interactions into meaningful educational signals.
+
+---
+
+### Stage 3 — Cognitive Rule Engine
+
+The Rule Engine acts as ALETHIA's first reasoning layer.
+
+Using explainable behavioral rules, it identifies patterns such as:
+
+* Cognitive Drift
+* Attention Dropout
+* Learning Fatigue
+* Panic Guessing
+* Confidence Mismatch
+* Repeated Concept Confusion
+
+Unlike black-box AI systems, every conclusion produced by the Rule Engine can be explained and traced back to observable learner behavior.
+
+---
+
+### Stage 4 — Machine Learning Intelligence
+
+ALETHIA uses multiple AI models working together to build a comprehensive understanding of the learner.
+
+#### Comprehension Model (LightGBM)
+
+Predicts:
+
+* Understanding Confidence
+* Learning Success Probability
+* Concept Assimilation Strength
+
+#### Fatigue Detection Network
+
+Identifies:
+
+* Cognitive Overload
+* Mental Fatigue
+* Declining Attention Capacity
+
+using behavioral and interaction patterns.
+
+#### Knowledge Tracing Engine
+
+Tracks:
+
+* Concept Mastery
+* Learning Progression
+* Topic-Level Understanding
+
+over time.
+
+#### Retention Prediction Engine
+
+Estimates:
+
+* Knowledge Retention
+* Forgetting Risk
+* Revision Requirements
+
+before performance declines.
+
+---
+
+### Stage 5 — Adaptive Intervention Layer
+
+Most systems stop after identifying a problem.
+
+ALETHIA goes further.
+
+When learning difficulties are detected, ALETHIA generates personalized interventions such as:
+
+* Concept Checkpoints
+* Recovery Quizzes
+* Revision Suggestions
+* Learning Summaries
+* Difficulty Adjustments
+* Break Recommendations
+
+The objective is not simply to diagnose confusion, but to help learners recover from it.
+
+---
+
+## Why ALETHIA Is Different
+
+Traditional Platforms Measure:
+
+* Time Spent
+* Attendance
+* Completion Rate
+* Quiz Scores
+
+ALETHIA Measures:
+
+* Understanding
+* Cognitive Drift
+* Productive Struggle
+* Fatigue
+* Attention Stability
+* Retention Risk
+* Confidence Alignment
+
+This transforms learning from a passive content-consumption process into an intelligent feedback system.
+
+---
+
+## Technology Stack
+
+### Frontend
+
+* Next.js
+* React
+* TypeScript
+* Chrome Extension APIs
+* Tailwind CSS
+
+### Backend
+
+* FastAPI
+* Node.js
+* Redis
+* MongoDB
+
+### Artificial Intelligence & Machine Learning
+
+* Python
+* NumPy
+* Pandas
+* Scikit-Learn
+* LightGBM
+* PyTorch
+
+### Infrastructure
+
+* WebSockets
+* Redis Streams
+* Docker
+* GitHub
+
+---
+
+## Current Development Status
+
+### Completed
+
+✓ Feature Engineering Layer
+
+✓ Cognitive Rule Engine
+
+✓ Behavioral Telemetry Framework
+
+✓ Repository Architecture
+
+✓ Data Pipeline Design
+
+### In Progress
+
+• LightGBM Comprehension Model
+
+• Fatigue Detection System
+
+• Chrome Extension Integration
+
+• Instructor Analytics Dashboard
+
+### Planned
+
+• Knowledge Tracing Engine
+
+• Retention Prediction Engine
+
+• Adaptive Learning Personalization
+
+• Institution-Level Analytics
+
+---
+
+## Future Vision
+
+Education should not end with content delivery.
+
+The future of learning lies in understanding the learner.
+
+ALETHIA aims to become the intelligence layer that bridges the gap between content consumption and genuine understanding.
+
+By detecting learning breakdowns before they become performance failures, ALETHIA seeks to help students learn more effectively, educators teach more intelligently, and educational systems become truly adaptive.
+
+Because completing a lesson is not the same as understanding it.
