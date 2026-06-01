@@ -1,12 +1,21 @@
-import express, { type Request, type Response } from 'express';
+import express, { type NextFunction, type Request, type Response } from 'express';
+import sessionRouter from './routes/session.js';
+import { pool } from "./db.js";
 
 const app = express();
 const PORT = 3000;
 
-app.get('/', (req: Request, res: Response) => {
-    res.send('Hello, World!');
+app.use(express.json());
+
+app.use('/session', sessionRouter); 
+
+
+app.get('/', (req: Request, res: Response, next: NextFunction) => {
+  res.send('Hello, World!');
 });
 
-app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
+app.listen(PORT, async () => {
+    const result = await pool.query("SELECT NOW()");
+    console.log(result.rows);
+    console.log(`Server is running on port ${PORT}`);
 });
