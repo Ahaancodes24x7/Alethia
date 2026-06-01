@@ -1,0 +1,18 @@
+{
+  "mae": 0.018534228058365763,
+  "rmse": 0.02397409221349036,
+  "r2_score": 0.9743773153831014,
+  "explained_variance": 0.9743831920852004,
+  "pearson_correlation": 0.9871167621303107,
+  "prediction_distribution": {
+    "min": 0.3102733103323556,
+    "max": 0.9109735965004458,
+    "mean": 0.5994269252909015,
+    "std": 0.14723732583469515
+  },
+  "training_time_seconds": 16.7709,
+  "dataset_size": 20000,
+  "train_size": 16000,
+  "test_size": 4000,
+  "feature_count": 89
+}

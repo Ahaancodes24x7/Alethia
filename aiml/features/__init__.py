@@ -7,6 +7,7 @@ from .base import (
 )
 from .derived_features import DerivedFeatureExtractor
 from .external_hint_features import ExternalHintFeatureExtractor
+from .feature_pipeline import FeaturePipeline
 from .focus_features import FocusFeatureExtractor
 from .quiz_features import QuizFeatureExtractor
 from .scroll_features import ScrollFeatureExtractor
@@ -26,4 +27,5 @@ __all__ = [
     "QuizFeatureExtractor",
     "ExternalHintFeatureExtractor",
     "DerivedFeatureExtractor",
+    "FeaturePipeline",
 ]

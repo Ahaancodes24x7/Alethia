@@ -1,0 +1,358 @@
+[
+  {
+    "feature": "quiz_score",
+    "importance": 1044.0
+  },
+  {
+    "feature": "focus_active_engagement_ratio",
+    "importance": 873.0
+  },
+  {
+    "feature": "retention_risk_proxy",
+    "importance": 704.0
+  },
+  {
+    "feature": "quiz_hint_dependency_ratio",
+    "importance": 632.0
+  },
+  {
+    "feature": "quiz_first_attempt_accuracy",
+    "importance": 530.0
+  },
+  {
+    "feature": "quiz_confidence_mismatch",
+    "importance": 465.0
+  },
+  {
+    "feature": "video_completion_ratio",
+    "importance": 450.0
+  },
+  {
+    "feature": "typing_acceleration",
+    "importance": 429.0
+  },
+  {
+    "feature": "quiz_confidence_mean",
+    "importance": 415.0
+  },
+  {
+    "feature": "video_forward_skip_distance_mean_s",
+    "importance": 411.0
+  },
+  {
+    "feature": "typing_iki_cv",
+    "importance": 411.0
+  },
+  {
+    "feature": "video_effective_watch_ratio",
+    "importance": 408.0
+  },
+  {
+    "feature": "video_rewind_distance_mean_s",
+    "importance": 404.0
+  },
+  {
+    "feature": "external_time_ratio",
+    "importance": 399.0
+  },
+  {
+    "feature": "video_speedup_ratio",
+    "importance": 395.0
+  },
+  {
+    "feature": "external_llm_time_ratio",
+    "importance": 391.0
+  },
+  {
+    "feature": "scroll_reading_coverage",
+    "importance": 386.0
+  },
+  {
+    "feature": "scroll_reading_speed_wpm_estimate",
+    "importance": 386.0
+  },
+  {
+    "feature": "typing_speed_cpm",
+    "importance": 370.0
+  },
+  {
+    "feature": "scroll_linear_reading_ratio",
+    "importance": 369.0
+  },
+  {
+    "feature": "quiz_time_to_answer_cv",
+    "importance": 368.0
+  },
+  {
+    "feature": "typing_pause_before_typing_ms",
+    "importance": 366.0
+  },
+  {
+    "feature": "external_help_seeking_index",
+    "importance": 366.0
+  },
+  {
+    "feature": "quiz_time_to_first_action_s",
+    "importance": 365.0
+  },
+  {
+    "feature": "quiz_answer_change_rate",
+    "importance": 357.0
+  },
+  {
+    "feature": "engagement_deviation",
+    "importance": 354.0
+  },
+  {
+    "feature": "quiz_hint_request_rate",
+    "importance": 353.0
+  },
+  {
+    "feature": "focus_mean_loss_duration_s",
+    "importance": 352.0
+  },
+  {
+    "feature": "fatigue_proxy",
+    "importance": 352.0
+  },
+  {
+    "feature": "scroll_velocity_mean_px_s",
+    "importance": 351.0
+  },
+  {
+    "feature": "focus_return_latency_mean_s",
+    "importance": 349.0
+  },
+  {
+    "feature": "quiz_confidence_accuracy_correlation",
+    "importance": 346.0
+  },
+  {
+    "feature": "video_forward_skip_density",
+    "importance": 345.0
+  },
+  {
+    "feature": "focus_max_loss_duration_s",
+    "importance": 344.0
+  },
+  {
+    "feature": "scroll_revisit_rate",
+    "importance": 337.0
+  },
+  {
+    "feature": "external_mean_duration_s",
+    "importance": 336.0
+  },
+  {
+    "feature": "typing_correction_burst_rate",
+    "importance": 332.0
+  },
+  {
+    "feature": "focus_idle_ratio",
+    "importance": 330.0
+  },
+  {
+    "feature": "typing_long_pause_rate",
+    "importance": 328.0
+  },
+  {
+    "feature": "external_before_answer_rate",
+    "importance": 326.0
+  },
+  {
+    "feature": "scroll_velocity_std_px_s",
+    "importance": 325.0
+  },
+  {
+    "feature": "typing_dwell_time_std_ms",
+    "importance": 323.0
+  },
+  {
+    "feature": "video_pause_density",
+    "importance": 322.0
+  },
+  {
+    "feature": "video_rewind_density",
+    "importance": 317.0
+  },
+  {
+    "feature": "typing_flight_time_mean_ms",
+    "importance": 316.0
+  },
+  {
+    "feature": "scroll_dwell_time_mean_s",
+    "importance": 315.0
+  },
+  {
+    "feature": "video_slowdown_ratio",
+    "importance": 313.0
+  },
+  {
+    "feature": "typing_correction_burst_length_mean",
+    "importance": 312.0
+  },
+  {
+    "feature": "focus_return_latency_std_s",
+    "importance": 307.0
+  },
+  {
+    "feature": "quiz_abandonment_rate",
+    "importance": 307.0
+  },
+  {
+    "feature": "scroll_reversal_depth_mean_px",
+    "importance": 302.0
+  },
+  {
+    "feature": "personal_drift_zscore",
+    "importance": 302.0
+  },
+  {
+    "feature": "focus_rapid_tab_switch_rate",
+    "importance": 301.0
+  },
+  {
+    "feature": "scroll_reversal_rate",
+    "importance": 296.0
+  },
+  {
+    "feature": "video_segment_coverage",
+    "importance": 295.0
+  },
+  {
+    "feature": "typing_backspace_rate",
+    "importance": 295.0
+  },
+  {
+    "feature": "typing_dwell_time_mean_ms",
+    "importance": 293.0
+  },
+  {
+    "feature": "quiz_time_to_answer_mean_s",
+    "importance": 293.0
+  },
+  {
+    "feature": "typing_rhythm_entropy",
+    "importance": 292.0
+  },
+  {
+    "feature": "productive_struggle_score",
+    "importance": 291.0
+  },
+  {
+    "feature": "focus_loss_total_duration_s",
+    "importance": 287.0
+  },
+  {
+    "feature": "scroll_dwell_time_variance_s",
+    "importance": 279.0
+  },
+  {
+    "feature": "concept_loop_score",
+    "importance": 277.0
+  },
+  {
+    "feature": "behavioral_instability_index",
+    "importance": 272.0
+  },
+  {
+    "feature": "typing_flight_time_std_ms",
+    "importance": 269.0
+  },
+  {
+    "feature": "video_pause_duration_mean_s",
+    "importance": 254.0
+  },
+  {
+    "feature": "unproductive_struggle_score",
+    "importance": 251.0
+  },
+  {
+    "feature": "quiz_time_to_answer_std_s",
+    "importance": 249.0
+  },
+  {
+    "feature": "typing_error_correction_ratio",
+    "importance": 242.0
+  },
+  {
+    "feature": "typing_iki_std_ms",
+    "importance": 239.0
+  },
+  {
+    "feature": "multi_modal_confusion_score",
+    "importance": 222.0
+  },
+  {
+    "feature": "focus_loss_ratio",
+    "importance": 215.0
+  },
+  {
+    "feature": "typing_iki_mean_ms",
+    "importance": 191.0
+  },
+  {
+    "feature": "focus_idle_bout_count",
+    "importance": 96.0
+  },
+  {
+    "feature": "focus_loss_count",
+    "importance": 94.0
+  },
+  {
+    "feature": "video_speed_change_count",
+    "importance": 84.0
+  },
+  {
+    "feature": "scroll_section_skip_count",
+    "importance": 81.0
+  },
+  {
+    "feature": "video_same_segment_replay_count",
+    "importance": 74.0
+  },
+  {
+    "feature": "confidence_gap",
+    "importance": 67.0
+  },
+  {
+    "feature": "external_reference_count",
+    "importance": 65.0
+  },
+  {
+    "feature": "external_search_reference_count",
+    "importance": 64.0
+  },
+  {
+    "feature": "scroll_concept_loop_count",
+    "importance": 62.0
+  },
+  {
+    "feature": "external_reference_site_count",
+    "importance": 49.0
+  },
+  {
+    "feature": "external_llm_reference_count",
+    "importance": 29.0
+  },
+  {
+    "feature": "quiz_max_hint_level_used",
+    "importance": 16.0
+  },
+  {
+    "feature": "external_borrowed_knowledge_flag",
+    "importance": 7.0
+  },
+  {
+    "feature": "focus_context_flag",
+    "importance": 0.0
+  },
+  {
+    "feature": "quiz_overconfidence_flag",
+    "importance": 0.0
+  },
+  {
+    "feature": "quiz_underconfidence_flag",
+    "importance": 0.0
+  }
+]
