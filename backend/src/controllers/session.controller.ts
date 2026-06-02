@@ -66,29 +66,27 @@ export async function addEvent(
     });
 }
 
+const delay = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
+
 export async function finishSession(
     req: Request<SessionParams>,
     res: Response
 ) {
     const sessionId = req.params.id;
 
-    // db query goes here
+    console.log("called");
 
-    return res.status(200).json({
-        message: "Session marked complete",
-        sessionId
-    });
-}
+    // add finished session info to database
+    // add session id to queue for processing
+    res.setHeader("Content-Type", "text/event-stream");
+    res.setHeader("Cache-Control", "no-cache");
+    res.setHeader("Connection", "keep-alive");
+    res.flushHeaders();
+    res.write("data: session processing\n");
 
-export async function getReport(
-    req: Request,
-    res: Response
-) {
-    const sessionId = req.params.id;
+    await delay(3000);
 
-    // queue logic goes here
+    res.write("data: event completed\n");
 
-    return res.status(200).json({
-        sessionId
-    });
+    res.end();
 }
