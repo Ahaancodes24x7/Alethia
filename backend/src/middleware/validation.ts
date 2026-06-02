@@ -1,7 +1,11 @@
 import { Request, Response, NextFunction } from "express";
 
+type SessionParams = {
+    id: string;
+};
+
 export function validateSessionId(
-    req: Request,
+    req: Request<SessionParams>,
     res: Response,
     next: NextFunction
 ) {
@@ -60,7 +64,7 @@ export function validateCreateSession(
 }
 
 export function validateEvent(
-    req: Request,
+    req: Request<SessionParams>,
     res: Response,
     next: NextFunction
 ) {
