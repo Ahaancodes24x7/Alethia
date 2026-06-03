@@ -5,8 +5,7 @@ import {
     getSession,
     addEvent,
     finishSession,
-    getReport
-} from "../controllers/session.js";
+} from "../controllers/session.controller.js";
 
 import {
     validateCreateSession,
@@ -17,34 +16,28 @@ import {
 const router = Router();
 
 router.post(
-    "/session",
+    "/",
     validateCreateSession,
     createSession
 );
 
 router.get(
-    "/session/:id",
+    "/:id",
     validateSessionId,
     getSession
 );
 
 router.post(
-    "/session/:id/event",
+    "/:id/event",
     validateSessionId,
     validateEvent,
     addEvent
 );
 
-router.post(
-    "/session/:id/finish",
+router.get(
+    "/:id/finish",
     validateSessionId,
     finishSession
-);
-
-router.get(
-    "/session/:id/report",
-    validateSessionId,
-    getReport
 );
 
 export default router;

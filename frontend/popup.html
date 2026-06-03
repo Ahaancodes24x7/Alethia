@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ALETHIA</title>
+  <link rel="stylesheet" href="popup.css" />
+</head>
+<body>
+  <div class="container">
+    <header>
+  <h1>ALETHIA</h1>
+  <p>AI-Powered Learning Intelligence Platform</p>
+    </header>
+
+    
+
+    <section class="cards">
+
+  <div class="card">
+    <strong class="metric-title comprehension">
+  Comprehension
+</strong>
+
+    <h2>--</h2>
+  </div>
+
+  <div class="card">
+ <strong class="metric-title mastery">
+  Mastery
+</strong>
+    <h2>--</h2>
+  </div>
+
+</section>
+
+<section class="cards">
+
+  <div class="card">
+    <strong class="metric-title retention">
+  Retention
+</strong>
+    <h2>--</h2>
+  </div>
+
+  <div class="card">
+   <strong class="metric-title fatigue">
+  Fatigue
+</strong>
+    <h2>--</h2>
+  </div>
+
+</section>
+    
+
+    <section class="form-group">
+      <label for="sessionId">Session ID</label>
+      <input id="sessionId" type="text" placeholder="session_123" />
+    </section>
+
+    <section class="form-group">
+      <label for="userId">User ID</label>
+      <input id="userId" type="text" placeholder="user_abc" />
+    </section>
+
+    <section class="form-group">
+      <label for="contentType">Content Type</label>
+      <input id="contentType" type="text" placeholder="Youtube / Coursera / Udemy" />
+    </section>
+
+    <section class="form-group">
+      <label for="contentId">Content ID</label>
+      <input id="contentId" type="text" placeholder="content_001" />
+    </section>
+
+    <section class="form-group">
+      <label for="mode">Mode</label>
+      <select id="mode">
+        <option value="learning">learning</option>
+        <option value="assessment">assessment</option>
+      </select>
+    </section>
+
+
+
+    <section class="buttons">
+      <button id="captureButton">Capture Learning Signals</button>
+      <button id="sendButton">Analyze Understanding</button>
+    </section>
+
+    <section class="output">
+      <pre id="output">
+Awaiting telemetry capture...
+
+• Learning Signals
+• Understanding Metrics
+• AI Analysis
+
+Ready.
+</pre>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>
