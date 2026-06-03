@@ -1,0 +1,28 @@
+{
+  "accuracy": 0.88575,
+  "precision": 0.8804581245526127,
+  "recall": 0.8092105263157895,
+  "f1_score": 0.8433321906067878,
+  "roc_auc": 0.9587882003395587,
+  "confusion_matrix": [
+    [
+      2313,
+      167
+    ],
+    [
+      290,
+      1230
+    ]
+  ],
+  "prediction_distribution": {
+    "min": 3.962876144214533e-05,
+    "max": 0.9997656941413879,
+    "mean": 0.38034963012073786,
+    "std": 0.4041041305324419
+  },
+  "training_time_seconds": 3.2507,
+  "dataset_size": 20000,
+  "train_size": 16000,
+  "test_size": 4000,
+  "feature_count": 89
+}

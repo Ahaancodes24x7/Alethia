@@ -1,0 +1,358 @@
+[
+  {
+    "feature": "focus_idle_ratio",
+    "importance": 0.23265141248703003
+  },
+  {
+    "feature": "typing_iki_std_ms",
+    "importance": 0.11770718544721603
+  },
+  {
+    "feature": "typing_iki_mean_ms",
+    "importance": 0.08845870196819305
+  },
+  {
+    "feature": "fatigue_proxy",
+    "importance": 0.08619244396686554
+  },
+  {
+    "feature": "typing_long_pause_rate",
+    "importance": 0.0382804237306118
+  },
+  {
+    "feature": "behavioral_instability_index",
+    "importance": 0.025279022753238678
+  },
+  {
+    "feature": "video_pause_duration_mean_s",
+    "importance": 0.01755104586482048
+  },
+  {
+    "feature": "typing_speed_cpm",
+    "importance": 0.01634199358522892
+  },
+  {
+    "feature": "focus_active_engagement_ratio",
+    "importance": 0.014402873814105988
+  },
+  {
+    "feature": "typing_acceleration",
+    "importance": 0.012770602479577065
+  },
+  {
+    "feature": "typing_rhythm_entropy",
+    "importance": 0.011382711119949818
+  },
+  {
+    "feature": "focus_return_latency_mean_s",
+    "importance": 0.010388463735580444
+  },
+  {
+    "feature": "scroll_velocity_std_px_s",
+    "importance": 0.007868840359151363
+  },
+  {
+    "feature": "quiz_time_to_answer_std_s",
+    "importance": 0.007734969258308411
+  },
+  {
+    "feature": "typing_dwell_time_mean_ms",
+    "importance": 0.007093395106494427
+  },
+  {
+    "feature": "quiz_time_to_answer_mean_s",
+    "importance": 0.00699653709307313
+  },
+  {
+    "feature": "typing_flight_time_std_ms",
+    "importance": 0.0069101531989872456
+  },
+  {
+    "feature": "typing_pause_before_typing_ms",
+    "importance": 0.006771406624466181
+  },
+  {
+    "feature": "scroll_dwell_time_variance_s",
+    "importance": 0.006553757470101118
+  },
+  {
+    "feature": "typing_correction_burst_rate",
+    "importance": 0.005795324221253395
+  },
+  {
+    "feature": "typing_error_correction_ratio",
+    "importance": 0.005423405673354864
+  },
+  {
+    "feature": "multi_modal_confusion_score",
+    "importance": 0.005404744762927294
+  },
+  {
+    "feature": "focus_loss_ratio",
+    "importance": 0.005161351058632135
+  },
+  {
+    "feature": "typing_backspace_rate",
+    "importance": 0.005061477422714233
+  },
+  {
+    "feature": "focus_loss_count",
+    "importance": 0.004905416630208492
+  },
+  {
+    "feature": "external_reference_site_count",
+    "importance": 0.004880174063146114
+  },
+  {
+    "feature": "external_llm_reference_count",
+    "importance": 0.0048395744524896145
+  },
+  {
+    "feature": "video_slowdown_ratio",
+    "importance": 0.004798032809048891
+  },
+  {
+    "feature": "typing_flight_time_mean_ms",
+    "importance": 0.004744475707411766
+  },
+  {
+    "feature": "scroll_section_skip_count",
+    "importance": 0.0046966709196567535
+  },
+  {
+    "feature": "focus_max_loss_duration_s",
+    "importance": 0.004681392572820187
+  },
+  {
+    "feature": "scroll_linear_reading_ratio",
+    "importance": 0.004672640934586525
+  },
+  {
+    "feature": "video_forward_skip_distance_mean_s",
+    "importance": 0.004633600823581219
+  },
+  {
+    "feature": "typing_correction_burst_length_mean",
+    "importance": 0.004612095654010773
+  },
+  {
+    "feature": "external_mean_duration_s",
+    "importance": 0.004604258108884096
+  },
+  {
+    "feature": "scroll_reversal_rate",
+    "importance": 0.004588811658322811
+  },
+  {
+    "feature": "focus_return_latency_std_s",
+    "importance": 0.004579538479447365
+  },
+  {
+    "feature": "video_rewind_distance_mean_s",
+    "importance": 0.0045680454932153225
+  },
+  {
+    "feature": "focus_loss_total_duration_s",
+    "importance": 0.004510609898716211
+  },
+  {
+    "feature": "scroll_velocity_mean_px_s",
+    "importance": 0.004506479948759079
+  },
+  {
+    "feature": "unproductive_struggle_score",
+    "importance": 0.004473894834518433
+  },
+  {
+    "feature": "confidence_gap",
+    "importance": 0.004462331533432007
+  },
+  {
+    "feature": "engagement_deviation",
+    "importance": 0.004458086099475622
+  },
+  {
+    "feature": "scroll_concept_loop_count",
+    "importance": 0.004452171269804239
+  },
+  {
+    "feature": "scroll_reversal_depth_mean_px",
+    "importance": 0.0044335899874567986
+  },
+  {
+    "feature": "quiz_answer_change_rate",
+    "importance": 0.004421446472406387
+  },
+  {
+    "feature": "scroll_revisit_rate",
+    "importance": 0.004420663695782423
+  },
+  {
+    "feature": "personal_drift_zscore",
+    "importance": 0.004358307924121618
+  },
+  {
+    "feature": "quiz_hint_request_rate",
+    "importance": 0.004351508338004351
+  },
+  {
+    "feature": "scroll_dwell_time_mean_s",
+    "importance": 0.004291220102459192
+  },
+  {
+    "feature": "video_speedup_ratio",
+    "importance": 0.004246614407747984
+  },
+  {
+    "feature": "scroll_reading_coverage",
+    "importance": 0.004237374756485224
+  },
+  {
+    "feature": "quiz_time_to_first_action_s",
+    "importance": 0.004222906194627285
+  },
+  {
+    "feature": "scroll_reading_speed_wpm_estimate",
+    "importance": 0.004209327977150679
+  },
+  {
+    "feature": "video_speed_change_count",
+    "importance": 0.0042076134122908115
+  },
+  {
+    "feature": "quiz_confidence_mismatch",
+    "importance": 0.004180326592177153
+  },
+  {
+    "feature": "external_time_ratio",
+    "importance": 0.004158436320722103
+  },
+  {
+    "feature": "retention_risk_proxy",
+    "importance": 0.004146317485719919
+  },
+  {
+    "feature": "quiz_hint_dependency_ratio",
+    "importance": 0.004142670892179012
+  },
+  {
+    "feature": "video_pause_density",
+    "importance": 0.004141787998378277
+  },
+  {
+    "feature": "typing_iki_cv",
+    "importance": 0.004137225449085236
+  },
+  {
+    "feature": "video_segment_coverage",
+    "importance": 0.004117962904274464
+  },
+  {
+    "feature": "quiz_confidence_accuracy_correlation",
+    "importance": 0.004115264397114515
+  },
+  {
+    "feature": "external_reference_count",
+    "importance": 0.004104392137378454
+  },
+  {
+    "feature": "focus_rapid_tab_switch_rate",
+    "importance": 0.004067408852279186
+  },
+  {
+    "feature": "external_llm_time_ratio",
+    "importance": 0.004049218725413084
+  },
+  {
+    "feature": "video_rewind_density",
+    "importance": 0.00401028199121356
+  },
+  {
+    "feature": "quiz_first_attempt_accuracy",
+    "importance": 0.004008453339338303
+  },
+  {
+    "feature": "video_same_segment_replay_count",
+    "importance": 0.00399442296475172
+  },
+  {
+    "feature": "concept_loop_score",
+    "importance": 0.003983946051448584
+  },
+  {
+    "feature": "video_forward_skip_density",
+    "importance": 0.0038739191368222237
+  },
+  {
+    "feature": "external_before_answer_rate",
+    "importance": 0.003873647889122367
+  },
+  {
+    "feature": "video_effective_watch_ratio",
+    "importance": 0.00382565357722342
+  },
+  {
+    "feature": "video_completion_ratio",
+    "importance": 0.0038157543167471886
+  },
+  {
+    "feature": "quiz_abandonment_rate",
+    "importance": 0.0038095086347311735
+  },
+  {
+    "feature": "quiz_time_to_answer_cv",
+    "importance": 0.0037838781718164682
+  },
+  {
+    "feature": "focus_mean_loss_duration_s",
+    "importance": 0.0037437034770846367
+  },
+  {
+    "feature": "external_help_seeking_index",
+    "importance": 0.0037388054188340902
+  },
+  {
+    "feature": "quiz_score",
+    "importance": 0.00369270914234221
+  },
+  {
+    "feature": "quiz_confidence_mean",
+    "importance": 0.003623032011091709
+  },
+  {
+    "feature": "typing_dwell_time_std_ms",
+    "importance": 0.003565595718100667
+  },
+  {
+    "feature": "external_search_reference_count",
+    "importance": 0.003213221672922373
+  },
+  {
+    "feature": "productive_struggle_score",
+    "importance": 0.0029932998586446047
+  },
+  {
+    "feature": "focus_idle_bout_count",
+    "importance": 0.0028380451258271933
+  },
+  {
+    "feature": "focus_context_flag",
+    "importance": 0.0
+  },
+  {
+    "feature": "quiz_max_hint_level_used",
+    "importance": 0.0
+  },
+  {
+    "feature": "quiz_overconfidence_flag",
+    "importance": 0.0
+  },
+  {
+    "feature": "quiz_underconfidence_flag",
+    "importance": 0.0
+  },
+  {
+    "feature": "external_borrowed_knowledge_flag",
+    "importance": 0.0
+  }
+]
