@@ -81,7 +81,7 @@ export async function addEvent(
     });
 }
 
-const delay = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
+//const delay = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
 
 export async function finishSession(
     req: Request<SessionParams>,
@@ -95,19 +95,19 @@ export async function finishSession(
     res.setHeader("Cache-Control", "no-cache");
     res.setHeader("Connection", "keep-alive");
     res.flushHeaders();
-    res.write("data: processing\n");
+    res.write("data: processing\n\n");
 
     analysisQueue.add("process", { "id": sessionId });
 
     eventEmitter.once(`job:completed:${sessionId}`, (data) => {
         console.log(data.report);
-        res.write("data: event completed\n");
+        res.write("data: event completed\n\n");
         res.end();
     });
 
     eventEmitter.once(`job:failed:${sessionId}`, (data) => {
         console.log(data.error);
-        res.write("data: event failed\n");
+        res.write("data: event failed\n\n");
         res.end();
     });
 }
