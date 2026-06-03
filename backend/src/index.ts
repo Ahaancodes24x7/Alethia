@@ -14,6 +14,10 @@ app.use('/session', sessionRouter);
 
 const delay = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
 export const eventEmitter = new EventEmitter();
+const connection = {
+  host: "localhost",
+  port: 6379,
+};
 const worker = new Worker("analysis", async (job) => {
     const sessionId = job.data.id;
     console.log(sessionId);
@@ -22,7 +26,7 @@ const worker = new Worker("analysis", async (job) => {
     await delay(5000);
     const report = Math.random();
     return report;
-});
+}, {connection});
 
 worker.on("completed", (job, report) => {
   eventEmitter.emit(`job:completed:${job.data.id}`, { sessionId: job.data.id, report });
