@@ -1,7 +1,9 @@
 import { Request, Response } from "express";
 import { v4 as uuidv4 } from "uuid";
 import { pool } from "../db.js";
-
+import {redis} from "../redis.js";
+import { analysisQueue } from "../queue/analysis.js";
+import {eventEmitter} from "../index.js";
 
 //replacement for redis for now
 type CacheEntry = {
@@ -10,32 +12,30 @@ type CacheEntry = {
     duration: number | string;
     userId: string;
     events: any[];
-};
-const tmp_cache: Record<string, CacheEntry> = {};
+}
 
 interface SessionParams {
     id: string;
 }
 
 export async function createSession(req: Request,res: Response) {
-    const sessionPrompt = req.body.sessionPrompt;
-    const sessionDuration = req.body.sessionDuration;
+    const sessionPrompt = req.body.prompt;
+    const sessionDuration = req.body.duration;
     //const userId = req.body.userId;
 
     const sessionId = uuidv4();
-    tmp_cache[sessionId] = {
+    const currentSession: CacheEntry = {
         "prompt": sessionPrompt,
         "startTime": Date.now(),
         "duration": sessionDuration,
         "userId": "11111111-1111-1111-1111-111111111111",
         "events": []
-    };
+    }
     
+    redis.set(sessionId, JSON.stringify(currentSession)); 
 
     return res.status(201).json({
         message: "Session created",
-        sessionPrompt,
-        sessionDuration
     });
 }
 
@@ -45,9 +45,17 @@ export async function getSession(
 ) {
     const sessionId = req.params.id;
 
-    // db query goes here 
-
-    return res.status(200).json(tmp_cache[sessionId]);
+    redis.get(sessionId, (err, result) => {
+        if (err) {
+            console.error("Error fetching session from Redis:", err);
+            return res.status(500).json({ error: "Internal Server Error" });
+        }
+        if (!result) {
+            return res.status(404).json({ error: "Session not found" });
+        }
+        const sessionData: CacheEntry = JSON.parse(result);
+        return res.status(200).json(sessionData);
+    }); 
 }
 
 export async function addEvent(
@@ -56,13 +64,20 @@ export async function addEvent(
 ) {
     const sessionId = req.params.id;
 
-    const eventPayload = req.body.eventPayload;
+    const eventPayload = req.body.payload;
 
-    tmp_cache[sessionId].events.push(eventPayload);
-
-    return res.status(200).json({
-        sessionId,
-        eventPayload
+    redis.get(sessionId, (err, result) => {
+        if (err) {
+            console.error("Error fetching session from Redis:", err);
+            return res.status(500).json({ error: "Internal Server Error" });
+        }
+        if (!result) {
+            return res.status(404).json({ error: "Session not found" });
+        }
+        const sessionData: CacheEntry = JSON.parse(result);
+        sessionData.events.push(eventPayload);
+        redis.set(sessionId, JSON.stringify(sessionData));
+        return res.status(200).json({"message": "Event Added"});
     });
 }
 
@@ -76,17 +91,23 @@ export async function finishSession(
 
     console.log("called");
 
-    // add finished session info to database
-    // add session id to queue for processing
     res.setHeader("Content-Type", "text/event-stream");
     res.setHeader("Cache-Control", "no-cache");
     res.setHeader("Connection", "keep-alive");
     res.flushHeaders();
-    res.write("data: session processing\n");
+    res.write("data: processing\n");
 
-    await delay(3000);
+    analysisQueue.add("process", { "id": sessionId });
 
-    res.write("data: event completed\n");
+    eventEmitter.once(`job:completed:${sessionId}`, (data) => {
+        console.log(data.report);
+        res.write("data: event completed\n");
+        res.end();
+    });
 
-    res.end();
+    eventEmitter.once(`job:failed:${sessionId}`, (data) => {
+        console.log(data.error);
+        res.write("data: event failed\n");
+        res.end();
+    });
 }
