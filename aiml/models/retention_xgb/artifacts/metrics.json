@@ -1,0 +1,17 @@
+{
+  "mae": 0.0043965018,
+  "rmse": 0.0057728496,
+  "r2": 0.9985914219,
+  "bucket_accuracy": 0.9845,
+  "prediction_distribution": {
+    "min": 0.035462886095047,
+    "max": 0.6744133234024048,
+    "mean": 0.38797956705093384,
+    "std": 0.15342018008232117
+  },
+  "training_time_seconds": 31.9767,
+  "dataset_size": 20000,
+  "train_size": 16000,
+  "test_size": 4000,
+  "feature_count": 84
+}
