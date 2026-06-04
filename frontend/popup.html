@@ -9,11 +9,38 @@
 <body>
   <div class="container">
     <header>
-  <h1>ALETHIA</h1>
-  <p>AI-Powered Learning Intelligence Platform</p>
+      <h1>ALETHIA</h1>
+      <p>AI-Powered Learning Intelligence Platform</p>
     </header>
 
-    
+    <main id="loginView" class="view">
+      <section class="login-panel">
+        <h2>Login</h2>
+        <p>Start a learning session with automatically generated user and session details.</p>
+
+        <div class="form-group">
+          <label for="loginName">Name</label>
+          <input id="loginName" type="text" placeholder="Enter your name" autocomplete="name" />
+        </div>
+
+        <div class="form-group">
+          <label for="loginEmail">Email</label>
+          <input id="loginEmail" type="email" placeholder="name@example.com" autocomplete="email" />
+        </div>
+
+        <button id="loginButton" type="button">Login & Start Session</button>
+        <button id="bypassLoginButton" type="button" class="secondary-button full-width-button">Bypass Login</button>
+      </section>
+    </main>
+
+    <main id="appView" class="view hidden">
+      <section class="session-panel">
+        <div>
+          <span class="session-label">Signed in as</span>
+          <strong id="signedInUser">--</strong>
+        </div>
+        <button id="logoutButton" type="button" class="secondary-button">Logout</button>
+      </section>
 
     <section class="cards">
 
@@ -54,13 +81,18 @@
     
 
     <section class="form-group">
+      <label for="sessionNumber">Session Number</label>
+      <input id="sessionNumber" type="text" readonly />
+    </section>
+
+    <section class="form-group">
       <label for="sessionId">Session ID</label>
-      <input id="sessionId" type="text" placeholder="session_123" />
+      <input id="sessionId" type="text" readonly />
     </section>
 
     <section class="form-group">
       <label for="userId">User ID</label>
-      <input id="userId" type="text" placeholder="user_abc" />
+      <input id="userId" type="text" readonly />
     </section>
 
     <section class="form-group">
@@ -98,6 +130,8 @@ Awaiting telemetry capture...
 
 Ready.
 </pre>
+    </section>
+    </main>
   </div>
 
   <script src="popup.js"></script>
