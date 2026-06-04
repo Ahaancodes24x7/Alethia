@@ -202,6 +202,112 @@ This transforms learning from a passive content-consumption process into an inte
 
 ---
 
+## AIML Intelligence Layer
+
+### Overview
+
+ALETHIA AIML converts behavioral telemetry into cognitive intelligence. Raw learning activity is transformed into 89 cognitive and behavioral features, evaluated by specialized models, checked by an explainable rule engine, and fused into a backend-ready learning-state response.
+
+### Architecture
+
+```text
+Learning Telemetry
+        |
+        v
+Feature Engineering
+        |
+        v
+LightGBM Comprehension + XGBoost Fatigue + XGBoost Retention
+        |
+        v
+Rule Engine
+        |
+        v
+Fusion Layer
+        |
+        v
+FastAPI Output
+```
+
+### Feature Engineering
+
+The feature layer converts raw events into model-ready signals across video behavior, typing patterns, scrolling behavior, focus signals, quiz performance, and interaction features. These include rewind density, pause behavior, typing latency, typing rhythm entropy, scroll reversal patterns, focus loss, quiz accuracy, hint dependency, confidence mismatch, fatigue proxies, and retention-risk proxies.
+
+### Models
+
+#### LightGBM Comprehension
+
+Purpose: predict learner comprehension confidence from behavioral features.
+
+Algorithm: LightGBM regression.
+
+Metrics: MAE, RMSE, R2, Pearson correlation.
+
+#### XGBoost Fatigue
+
+Purpose: predict cognitive fatigue probability and fatigue state.
+
+Algorithm: XGBoost binary classification.
+
+Metrics: Accuracy, Precision, Recall, F1 Score, ROC-AUC, Confusion Matrix.
+
+#### XGBoost Retention
+
+Purpose: predict retention risk and future forgetting likelihood.
+
+Algorithm: XGBoost regression.
+
+Metrics: MAE, RMSE, R2, Bucket Accuracy.
+
+### Fusion Layer
+
+The fusion layer is deterministic rather than another machine learning model. This keeps ALETHIA explainable: model outputs remain visible, rule-engine traces remain transparent, and recommendations can be mapped back to observable cognitive signals. Fusion combines comprehension, retention strength, fatigue-derived cognitive energy, and rule-engine risk into one learning score, learning state, risk list, and intervention plan.
+
+### Execution Commands
+
+Generate dataset:
+
+```bash
+python -m aiml.data.synthetic_dataset_generator
+```
+
+Train models:
+
+```bash
+python -m aiml.models.comprehension_gbm.train
+python -m aiml.models.fatigue_xgb.train
+python -m aiml.models.retention_xgb.train --data aiml/data/synthetic_comprehension_dataset.csv
+```
+
+Evaluate models:
+
+```bash
+python -m aiml.models.comprehension_gbm.evaluate
+python -m aiml.models.fatigue_xgb.evaluate
+python -m aiml.models.retention_xgb.evaluate
+```
+
+Run inference:
+
+```bash
+python -m aiml.inference.predict
+```
+
+Run AIML API:
+
+```bash
+uvicorn aiml.api.main:app --reload
+```
+
+API testing:
+
+```text
+GET /health
+POST /predict
+```
+
+---
+
 ## Technology Stack
 
 ### Frontend

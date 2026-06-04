@@ -54,7 +54,7 @@ def evaluate_model(
     print("=" * 55)
     print(f"  MAE             : {mae:.4f}")
     print(f"  RMSE            : {rmse:.4f}")
-    print(f"  R²              : {r2:.4f}")
+    print(f"  R2              : {r2:.4f}")
     print(f"  Bucket Accuracy : {bucket_accuracy:.2%}")
     print(f"  ({bucket_correct}/{len(y_true)} correct LOW/MEDIUM/HIGH calls)")
     print("=" * 55)
@@ -105,7 +105,7 @@ def _save_feature_importance(model) -> None:
         top10 = importances[:10]
         max_score = top10[0][1]
         for rank, (name, score) in enumerate(top10, 1):
-            bar = "█" * int(score / max_score * 20)
+            bar = "#" * int(score / max_score * 20)
             print(f"  {rank:2}. {name:<45} {bar} ({score:.4f})")
 
     except Exception as e:
@@ -117,3 +117,29 @@ def _save_feature_columns() -> None:
     with open(path, "w") as f:
         json.dump(FEATURE_COLUMNS, f, indent=2)
     print(f"  Saved -> {path}")
+
+
+def main() -> dict:
+    path = ARTIFACTS_DIR / "metrics.json"
+    if not path.exists():
+        raise FileNotFoundError(f"Metrics artifact not found: {path}")
+
+    with open(path, "r", encoding="utf-8") as f:
+        metrics = json.load(f)
+
+    print("XGBoost retention model evaluation")
+    print(f"Dataset size: {metrics.get('dataset_size')}")
+    print(f"Features used: {metrics.get('feature_count')}")
+    print(
+        "Metrics: "
+        f"MAE={metrics['mae']:.5f}, "
+        f"RMSE={metrics['rmse']:.5f}, "
+        f"R2={metrics['r2']:.5f}, "
+        f"BucketAccuracy={metrics['bucket_accuracy']:.5f}"
+    )
+    print(f"Prediction distribution: {metrics.get('prediction_distribution')}")
+    return metrics
+
+
+if __name__ == "__main__":
+    main()

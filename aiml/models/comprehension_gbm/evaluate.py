@@ -48,3 +48,25 @@ def save_metrics(metrics: Dict[str, Any], path: Path | str = METRICS_PATH) -> No
     path = Path(path)
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(json.dumps(metrics, indent=2), encoding="utf-8")
+
+
+def main() -> Dict[str, Any]:
+    if not METRICS_PATH.exists():
+        raise FileNotFoundError(f"Metrics artifact not found: {METRICS_PATH}")
+
+    metrics = json.loads(METRICS_PATH.read_text(encoding="utf-8"))
+    print("LightGBM comprehension model evaluation")
+    print(f"Dataset size: {metrics.get('dataset_size')}")
+    print(f"Features used: {metrics.get('feature_count')}")
+    print(
+        "Metrics: "
+        f"MAE={metrics['mae']:.5f}, "
+        f"RMSE={metrics['rmse']:.5f}, "
+        f"R2={metrics['r2_score']:.5f}, "
+        f"Pearson={metrics['pearson_correlation']:.5f}"
+    )
+    return metrics
+
+
+if __name__ == "__main__":
+    main()
