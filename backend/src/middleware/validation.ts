@@ -26,25 +26,25 @@ export function validateCreateSession(
     next: NextFunction
 ) {
     const {
-        sessionPrompt,
-        sessionDuration
+        prompt,
+        duration
     } = req.body;
 
-    if (!sessionPrompt) {
+    if (!prompt) {
         return res.status(400).json({
             error: "Session prompt is required"
         });
     }
 
-    if (typeof sessionPrompt !== "string") {
+    if (typeof prompt !== "string") {
         return res.status(400).json({
             error: "Session prompt must be a string"
         });
     }
 
     if (
-        sessionDuration === undefined ||
-        sessionDuration === null
+        duration === undefined ||
+        duration === null
     ) {
         return res.status(400).json({
             error: "Session duration is required"
@@ -52,8 +52,8 @@ export function validateCreateSession(
     }
 
     if (
-        typeof sessionDuration !== "number" ||
-        sessionDuration <= 0
+        typeof duration !== "number" ||
+        duration <= 0
     ) {
         return res.status(400).json({
             error: "Session duration must be a positive number"
