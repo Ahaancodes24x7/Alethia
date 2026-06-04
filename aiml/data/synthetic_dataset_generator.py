@@ -30,12 +30,11 @@ TOPICS = [
 ]
 
 PERSONAS: Dict[str, Dict[str, float]] = {
-    "High Performer": {
+    "Focused Learner": {
         "target_min": 0.80,
         "target_max": 0.98,
         "quiz": 0.90,
         "focus": 0.05,
-        "fatigue": 0.18,
         "hint": 0.10,
         "struggle": 0.18,
         "confidence": 0.86,
@@ -46,51 +45,36 @@ PERSONAS: Dict[str, Dict[str, float]] = {
         "target_max": 0.85,
         "quiz": 0.72,
         "focus": 0.12,
-        "fatigue": 0.32,
         "hint": 0.45,
         "struggle": 0.62,
         "confidence": 0.68,
         "completion": 0.88,
+    },
+    "Cognitively Fatigued Learner": {
+        "target_min": 0.20,
+        "target_max": 0.55,
+        "quiz": 0.44,
+        "focus": 0.24,
+        "hint": 0.40,
+        "struggle": 0.55,
+        "confidence": 0.48,
+        "completion": 0.58,
     },
     "Distracted Learner": {
         "target_min": 0.25,
         "target_max": 0.60,
         "quiz": 0.48,
         "focus": 0.42,
-        "fatigue": 0.30,
         "hint": 0.35,
         "struggle": 0.45,
         "confidence": 0.54,
         "completion": 0.52,
     },
-    "Fatigued Learner": {
-        "target_min": 0.20,
-        "target_max": 0.55,
-        "quiz": 0.44,
-        "focus": 0.24,
-        "fatigue": 0.78,
-        "hint": 0.40,
-        "struggle": 0.55,
-        "confidence": 0.48,
-        "completion": 0.58,
-    },
-    "False Confidence Learner": {
-        "target_min": 0.20,
-        "target_max": 0.50,
-        "quiz": 0.36,
-        "focus": 0.16,
-        "fatigue": 0.28,
-        "hint": 0.18,
-        "struggle": 0.35,
-        "confidence": 0.84,
-        "completion": 0.72,
-    },
-    "Intensive Revision Learner": {
+    "Cramming Learner": {
         "target_min": 0.65,
         "target_max": 0.90,
         "quiz": 0.78,
         "focus": 0.14,
-        "fatigue": 0.44,
         "hint": 0.30,
         "struggle": 0.76,
         "confidence": 0.74,
@@ -110,6 +94,46 @@ def count_like(rng: random.Random, mean: float, spread: float = 1.0) -> float:
     return float(max(0, round(rng.gauss(mean, spread))))
 
 
+def simulate_learner_state(
+    rng: random.Random,
+    persona: str,
+    session_phase: float,
+) -> Dict[str, float]:
+    if persona == "Focused Learner":
+        cognitive_load = clamp(rng.gauss(0.16 + session_phase * 0.05, 0.08), 0, 1)
+        effort = sample_unit(rng, 0.24, 0.08)
+        distraction = sample_unit(rng, 0.07, 0.05)
+    elif persona == "Productive Struggler":
+        cognitive_load = clamp(rng.gauss(0.42 + session_phase * 0.10, 0.13), 0, 1)
+        effort = sample_unit(rng, 0.76, 0.10)
+        distraction = sample_unit(rng, 0.12, 0.06)
+    elif persona == "Cognitively Fatigued Learner":
+        cognitive_load = clamp(rng.gauss(0.74 + session_phase * 0.18, 0.12), 0, 1)
+        effort = sample_unit(rng, 0.58, 0.12)
+        distraction = sample_unit(rng, 0.20, 0.08)
+    elif persona == "Distracted Learner":
+        cognitive_load = clamp(rng.gauss(0.30 + session_phase * 0.04, 0.13), 0, 1)
+        effort = sample_unit(rng, 0.38, 0.12)
+        distraction = sample_unit(rng, 0.70, 0.12)
+    elif persona == "Cramming Learner":
+        cognitive_load = clamp(rng.gauss(0.20 + session_phase * 0.68, 0.10), 0, 1)
+        effort = sample_unit(rng, 0.82 - session_phase * 0.12, 0.10)
+        distraction = sample_unit(rng, 0.10 + session_phase * 0.10, 0.06)
+    else:
+        cognitive_load = sample_unit(rng, 0.45, 0.15)
+        effort = sample_unit(rng, 0.50, 0.15)
+        distraction = sample_unit(rng, 0.25, 0.12)
+
+    fatigue_label = 1.0 if cognitive_load >= 0.62 else 0.0
+    return {
+        "cognitive_load": cognitive_load,
+        "effort": effort,
+        "distraction": distraction,
+        "session_phase": session_phase,
+        "fatigue_label": fatigue_label,
+    }
+
+
 def get_feature_metadata() -> Dict[str, Any]:
     pipeline = FeaturePipeline()
     metadata: Dict[str, Any] = {}
@@ -118,16 +142,23 @@ def get_feature_metadata() -> Dict[str, Any]:
     return metadata
 
 
-def generate_feature_row(rng: random.Random, persona: str) -> Dict[str, float]:
+def generate_feature_row(
+    rng: random.Random,
+    persona: str,
+    learner_state: Dict[str, float],
+) -> Dict[str, float]:
     p = PERSONAS[persona]
-    quiz = sample_unit(rng, p["quiz"], 0.08)
-    focus_loss = sample_unit(rng, p["focus"], 0.08)
-    fatigue = sample_unit(rng, p["fatigue"], 0.10)
+    fatigue = learner_state["cognitive_load"]
+    effort = learner_state["effort"]
+    distraction = learner_state["distraction"]
+    decay = fatigue * 0.18 if persona in {"Cognitively Fatigued Learner", "Cramming Learner"} else fatigue * 0.06
+
+    quiz = sample_unit(rng, p["quiz"] - decay, 0.08)
+    focus_loss = sample_unit(rng, p["focus"] + distraction * 0.35 + fatigue * 0.06, 0.08)
     hint = sample_unit(rng, p["hint"], 0.12)
-    struggle = sample_unit(rng, p["struggle"], 0.12)
-    confidence = sample_unit(rng, p["confidence"], 0.08)
-    completion = sample_unit(rng, p["completion"], 0.08)
-    distraction = focus_loss
+    struggle = sample_unit(rng, p["struggle"] + effort * 0.12, 0.12)
+    confidence = sample_unit(rng, p["confidence"] - decay * 0.35, 0.08)
+    completion = sample_unit(rng, p["completion"] - distraction * 0.15 - fatigue * 0.08, 0.08)
 
     rewind_density = clamp(0.15 + struggle * 2.4 + rng.gauss(0, 0.25), 0, 5)
     replay_count = count_like(rng, struggle * 5.0, 1.0)
@@ -312,13 +343,16 @@ def validate(rows: List[Dict[str, Any]], feature_names: List[str]) -> List[str]:
     errors: List[str] = []
     if len(rows) < 10_000:
         errors.append("row count below minimum")
-    for name in feature_names + ["comprehension_confidence"]:
+    for name in feature_names + ["comprehension_confidence", "fatigue_label"]:
         if any(row.get(name, "") == "" for row in rows):
             errors.append(f"missing values in {name}")
             break
     target_values = [float(row["comprehension_confidence"]) for row in rows]
     if not all(0.0 <= value <= 1.0 for value in target_values):
         errors.append("target outside range")
+    fatigue_values = [float(row["fatigue_label"]) for row in rows]
+    if any(value not in {0.0, 1.0} for value in fatigue_values):
+        errors.append("fatigue_label must be binary")
     return errors
 
 
@@ -331,7 +365,9 @@ def main() -> None:
     personas = list(PERSONAS.keys())
     for idx in range(ROW_COUNT):
         persona = personas[idx % len(personas)]
-        features = generate_feature_row(rng, persona)
+        session_phase = ((idx // len(personas)) % 12) / 11
+        learner_state = simulate_learner_state(rng, persona, session_phase)
+        features = generate_feature_row(rng, persona, learner_state)
         target = target_from_features(rng, features, persona)
         row: Dict[str, Any] = {
             "session_id": f"session_{idx + 1:05d}",
@@ -343,6 +379,7 @@ def main() -> None:
         }
         row.update({name: round(float(features[name]), 6) for name in feature_names})
         row["comprehension_confidence"] = target
+        row["fatigue_label"] = int(learner_state["fatigue_label"])
         rows.append(row)
 
     with DATASET_PATH.open("w", newline="", encoding="utf-8") as handle:

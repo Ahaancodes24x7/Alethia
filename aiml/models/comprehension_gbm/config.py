@@ -26,6 +26,7 @@ METADATA_COLUMNS = {
     "timestamp",
     "created_at",
     "updated_at",
+    "fatigue_label",
 }
 
 MODEL_PARAMS = {
