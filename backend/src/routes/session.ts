@@ -1,19 +1,20 @@
 import { Router } from "express";
-
 import {
     createSession,
     getSession,
     addEvent,
     finishSession,
 } from "../controllers/session.controller.js";
-
 import {
     validateCreateSession,
     validateSessionId,
     validateEvent
 } from "../middleware/validation.js";
+import { authMiddleware } from "../middleware/authCheck.js";
 
 const router = Router();
+
+router.use(authMiddleware);
 
 router.post(
     "/",
