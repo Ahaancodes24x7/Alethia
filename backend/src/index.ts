@@ -1,5 +1,6 @@
 import express, { type NextFunction, type Request, type Response } from 'express';
 import sessionRouter from './routes/session.js';
+import dashboardRouter from './routes/dashboard.js';
 import { pool } from "./db.js";
 import {redis} from "./redis.js";
 import {Worker} from "bullmq";
@@ -11,6 +12,7 @@ const PORT = 3000;
 app.use(express.json());
 
 app.use('/session', sessionRouter);
+app.use('/dashboard', dashboardRouter);
 
 const delay = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
 export const eventEmitter = new EventEmitter();

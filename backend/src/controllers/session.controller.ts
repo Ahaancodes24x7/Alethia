@@ -1,11 +1,10 @@
-import { Request, Response } from "express";
+import { type Request, type Response } from "express";
 import { v4 as uuidv4 } from "uuid";
 import { pool } from "../db.js";
 import {redis} from "../redis.js";
 import { analysisQueue } from "../queue/analysis.js";
 import {eventEmitter} from "../index.js";
 
-//replacement for redis for now
 type CacheEntry = {
     prompt: string;
     startTime: Date;
@@ -22,14 +21,14 @@ interface SessionParams {
 export async function createSession(req: Request,res: Response) {
     const sessionPrompt = req.body.prompt;
     const sessionDuration = req.body.duration;
-    //const userId = req.body.userId;
+    const userId = req.body.userId;
 
     const sessionId = uuidv4();
     const currentSession: CacheEntry = {
         "prompt": sessionPrompt,
         "startTime": new Date(),
         "duration": sessionDuration,
-        "userId": "11111111-1111-1111-1111-111111111111",
+        "userId": userId,
         "events": []
     }
     
@@ -109,10 +108,13 @@ export async function finishSession(
         redis.get(sessionId, async (err, result) => {
             if (err) {
                 console.error("Error fetching session from Redis:", err);
-                return;
+                res.write("data: error\n\n");
+                res.end();
             }
             if(!result) {
                 console.error("Session not found in Redis");
+                res.write("data: not found\n\n");
+                res.end();
                 return;
             }
             const { userId, prompt, startTime }: CacheEntry = JSON.parse(result);
