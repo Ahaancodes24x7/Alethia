@@ -2,6 +2,7 @@ import { type Request, type Response } from "express";
 import { pool } from "../db.js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
+import { v4 as uuidv4 } from "uuid";
 
 import dotenv from "dotenv";
 dotenv.config();
@@ -24,8 +25,8 @@ export async function signupHandler(req: Request, res: Response) {
     try {
         const hashedPassword = await bcrypt.hash(password, Math.floor(Math.random() * 6) + 10);
         const result = await pool.query(
-            "INSERT INTO users (email, name, password) VALUES ($1, $2, $3) RETURNING id",
-            [email, name, hashedPassword]
+            "INSERT INTO users (id, email, name, password) VALUES ($1, $2, $3, $4) RETURNING id",
+            [uuidv4(), email, name, hashedPassword]
         );
         const userId = result.rows[0].id;
         res.status(201).json({ message: "User created", id: userId });

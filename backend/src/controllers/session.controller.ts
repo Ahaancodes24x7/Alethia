@@ -21,14 +21,14 @@ interface SessionParams {
 export async function createSession(req: Request,res: Response) {
     const sessionPrompt = req.body.prompt;
     const sessionDuration = req.body.duration;
-    const userId = req.body.userId;
+    const userId = req.userId;
 
     const sessionId = uuidv4();
     const currentSession: CacheEntry = {
         "prompt": sessionPrompt,
         "startTime": new Date(),
         "duration": sessionDuration,
-        "userId": userId,
+        "userId": userId!,
         "events": []
     }
     
