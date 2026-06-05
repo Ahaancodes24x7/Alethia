@@ -19,6 +19,13 @@ interface SessionParams {
 
 //TESTED AND WORKING
 export async function createSession(req: Request,res: Response) {
+    const uniqueSessionCheck = await redis.get(`active:${req.userId}`);
+    if(uniqueSessionCheck) {
+        return res.status(400).json({
+            error: "User already has an active session"
+        });
+    }
+
     const sessionPrompt = req.body.prompt;
     const sessionDuration = req.body.duration;
     const userId = req.userId;
@@ -32,7 +39,8 @@ export async function createSession(req: Request,res: Response) {
         "events": []
     }
     
-    redis.set(sessionId, JSON.stringify(currentSession)); 
+    await redis.set(sessionId, JSON.stringify(currentSession));
+    await redis.set(`active:${userId}`, sessionId);
 
     return res.status(201).json({
         message: "Session created",
@@ -129,7 +137,8 @@ export async function finishSession(
                     [sessionId, userId, prompt, startTime, new Date(), data.report]
                 );
                 const returnResponse = JSON.stringify(result.rows[0]);
-                redis.del(sessionId);
+                await redis.del(sessionId);
+                await redis.del(`active:${userId}`);
                 res.write(`data: ${returnResponse}\n\n`);
                 res.end()
             } catch (err) {
