@@ -211,27 +211,36 @@ ALETHIA AIML converts behavioral telemetry into cognitive intelligence. Raw lear
 ### Architecture
 
 ```text
-Learning Telemetry
+Browser Extension / Frontend
         |
         v
-Feature Engineering
+Backend
+        |
+        v
+FastAPI AIML Service
+        |
+        v
+Raw telemetry event adapter
+        |
+        v
+FeaturePipeline.extract_all()
+        |
+        v
+89 engineered cognitive features
         |
         v
 LightGBM Comprehension + XGBoost Fatigue + XGBoost Retention
         |
         v
-Rule Engine
+Fusion Layer + Rule Engine
         |
         v
-Fusion Layer
-        |
-        v
-FastAPI Output
+Backend-ready learning report
 ```
 
 ### Feature Engineering
 
-The feature layer converts raw events into model-ready signals across video behavior, typing patterns, scrolling behavior, focus signals, quiz performance, and interaction features. These include rewind density, pause behavior, typing latency, typing rhythm entropy, scroll reversal patterns, focus loss, quiz accuracy, hint dependency, confidence mismatch, fatigue proxies, and retention-risk proxies.
+The backend sends raw telemetry events to the AIML FastAPI service. AIML performs feature extraction internally and converts events into model-ready signals across video behavior, typing patterns, scrolling behavior, focus signals, quiz performance, and interaction features. These include rewind density, pause behavior, typing latency, typing rhythm entropy, scroll reversal patterns, focus loss, quiz accuracy, hint dependency, confidence mismatch, fatigue proxies, and retention-risk proxies.
 
 ### Models
 
@@ -296,14 +305,62 @@ python -m aiml.inference.predict
 Run AIML API:
 
 ```bash
-uvicorn aiml.api.main:app --reload
+python -m uvicorn aiml.api.main:app --host 127.0.0.1 --port 8000
 ```
 
-API testing:
+API contract:
 
 ```text
+GET /
 GET /health
 POST /predict
+```
+
+Backend raw event request:
+
+```json
+{
+  "session_id": "test123",
+  "events": [
+    {
+      "event_type": "SCROLL",
+      "timestamp": 17174300,
+      "payload": {
+        "domain": "leetcode.com",
+        "scroll_delta": 350,
+        "scroll_position": 2400
+      }
+    }
+  ]
+}
+```
+
+The service also accepts the legacy feature-dictionary request format for backward compatibility:
+
+```json
+{
+  "session_id": "abc",
+  "features": {
+    "quiz_score": 0.8,
+    "typing_speed_cpm": 200
+  }
+}
+```
+
+Prediction response:
+
+```json
+{
+  "session_id": "test123",
+  "overall_learning_score": 55,
+  "learning_state": "Needs Strategy Change",
+  "confidence": 0.7581,
+  "metrics": {},
+  "risks": [],
+  "recommendations": [],
+  "model_outputs": {},
+  "rule_engine": {}
+}
 ```
 
 ---

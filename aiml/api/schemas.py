@@ -1,18 +1,27 @@
 from __future__ import annotations
 
-from typing import Any
+from typing import Any, Optional
 
 from pydantic import BaseModel, Field
 
-class Event(BaseModel):
+
+class EventInput(BaseModel):
     event_type: str
-    timestamp: int
+    timestamp: int | float
     payload: dict[str, Any]
 
 
-class PredictRequest(BaseModel):
+class PredictionRequest(BaseModel):
     session_id: str = Field(..., min_length=1)
-    events: list[Event]
+    features: Optional[dict[str, Any]] = None
+    events: Optional[list[EventInput]] = None
+    user_id: str = "anonymous"
+    content_id: str = "unknown"
+    content_type: str = "general"
+    learning_mode: str = "learning"
+
+
+PredictRequest = PredictionRequest
 
 
 class PredictResponse(BaseModel):
