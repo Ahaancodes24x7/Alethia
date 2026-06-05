@@ -247,7 +247,6 @@ select option {
 }
 
 button {
-  flex: 1;
   min-height: 52px;
   border: none;
   border-radius: 14px;
@@ -257,6 +256,9 @@ button {
   font-weight: 600;
   cursor: pointer;
   transition: all 0.2s ease;
+}
+.buttons button {
+  flex: 1;
 }
 
 button:hover {
@@ -353,4 +355,8 @@ pre {
     opacity: 1;
     transform: translateY(0);
   }
+}
+#loginButton {
+  width: 100%;
+  margin-bottom: 10px;
 }
