@@ -41,7 +41,7 @@ def health() -> dict:
 @app.post("/predict", response_model=PredictResponse)
 def predict(request: PredictRequest) -> dict:
     try:
-        result = predict_learning_state(request.features)
+        result = predict_learning_state(request.events)
     except Exception as exc:
         raise HTTPException(status_code=500, detail=str(exc)) from exc
 

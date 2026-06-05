@@ -6,6 +6,7 @@ import { pool } from "./db.js";
 import {redis} from "./redis.js";
 import {Worker} from "bullmq";
 import {EventEmitter} from "events";
+import axios from "axios";
 
 const app = express();
 const PORT = 3000;
@@ -16,7 +17,6 @@ app.use('/session', sessionRouter);
 app.use('/dashboard', dashboardRouter);
 app.use('/auth', authRouter);
 
-const delay = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
 export const eventEmitter = new EventEmitter();
 const connection = {
     host: "localhost",
@@ -26,10 +26,20 @@ const worker = new Worker("analysis", async (job) => {
     const sessionId = job.data.id;
     console.log(sessionId);
 
-    //api call placeholder
-    await delay(5000);
-    const report = Math.random();
-    return report;
+    try{
+        const sessionData = await redis.get(sessionId);
+        const events = JSON.parse(sessionData!).events;
+        const report = await axios.post("http://localhost:8000/predict", {
+            session_id: sessionId,
+            events: events
+        });
+        return report;
+    }
+    catch (error) {
+        console.error("Error occurred while making API call:", error);
+        throw error;
+    }
+    
 }, {connection});
 
 worker.on("completed", (job, report) => {

@@ -60,6 +60,11 @@ export async function getSession(
     }); 
 }
 
+type Event = {
+    timestamp: number;
+    type: string;
+    payload: any;
+}
 //TESTED AND WORKING
 export async function addEvent(
     req: Request<SessionParams>,
@@ -67,7 +72,7 @@ export async function addEvent(
 ) {
     const sessionId = req.params.id;
 
-    const eventPayload = req.body.eventPayload;
+    const event: Event = req.body;
 
     redis.get(sessionId, (err, result) => {
         if (err) {
@@ -78,7 +83,7 @@ export async function addEvent(
             return res.status(404).json({ error: "Session not found" });
         }
         const sessionData: CacheEntry = JSON.parse(result);
-        sessionData.events.push(eventPayload);
+        sessionData.events.push(event);
         redis.set(sessionId, JSON.stringify(sessionData));
         return res.status(200).json({"message": "Event Added"});
     });
@@ -118,15 +123,14 @@ export async function finishSession(
                 return;
             }
             const { userId, prompt, startTime }: CacheEntry = JSON.parse(result);
-
             try{
-                const result = await pool.query(
+               /* const result = await pool.query(
                     "INSERT INTO sessions (id, user_id, prompt, start_time, end_time, report) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *",
                     [sessionId, userId, prompt, startTime, new Date(), data.report]
                 );
-                const returnResponse = JSON.stringify(result.rows[0]);
+                const returnResponse = JSON.stringify(result.rows[0]);*/
                 redis.del(sessionId);
-                res.write(`data: ${returnResponse}\n\n`);
+                res.write(`data: completed\n\n`);
                 res.end()
             } catch (err) {
                 console.error(err);

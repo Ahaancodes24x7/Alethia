@@ -4,10 +4,15 @@ from typing import Any
 
 from pydantic import BaseModel, Field
 
+class Event(BaseModel):
+    event_type: str
+    timestamp: int
+    payload: dict[str, Any]
+
 
 class PredictRequest(BaseModel):
     session_id: str = Field(..., min_length=1)
-    features: dict[str, Any] = Field(default_factory=dict)
+    events: list[Event]
 
 
 class PredictResponse(BaseModel):

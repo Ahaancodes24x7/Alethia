@@ -20,6 +20,7 @@
   "homepage": "https://github.com/Ahaancodes24x7/Alethia#readme",
   "description": "",
   "dependencies": {
+    "axios": "^1.17.0",
     "bcrypt": "^6.0.0",
     "bullmq": "^5.78.0",
     "dotenv": "^17.4.2",

@@ -68,20 +68,11 @@ export function validateEvent(
     res: Response,
     next: NextFunction
 ) {
-    const { eventPayload } = req.body;
+    const { timestamp, event_type } = req.body;
 
-    if (!eventPayload) {
+    if(!timestamp || !event_type ) {
         return res.status(400).json({
-            error: "Event payload is required"
-        });
-    }
-
-    if (
-        typeof eventPayload !== "object" ||
-        Array.isArray(eventPayload)
-    ) {
-        return res.status(400).json({
-            error: "Event payload must be an object"
+            error: "Event must have a timestamp and type"
         });
     }
 
