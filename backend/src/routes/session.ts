@@ -11,10 +11,12 @@ import {
     validateEvent
 } from "../middleware/validation.js";
 import { authMiddleware } from "../middleware/authCheck.js";
+import {rateLimit} from "../middleware/rateLimit.js"
 
 const router = Router();
 
 router.use(authMiddleware);
+router.use(rateLimit);
 
 router.post(
     "/",

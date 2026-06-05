@@ -1,11 +1,15 @@
 import express, { type NextFunction, type Request, type Response } from 'express';
 import { pool } from '../db.js';
 import { authMiddleware } from "../middleware/authCheck.js";
+import { rateLimit } from "../middleware/rateLimit.js"
 
 const router = express.Router();
 
+router.use(authMiddleware);
+router.use(rateLimit);
+
 //TESTED AND WORKING
-router.get('/', authMiddleware, async (req: Request, res: Response, next: NextFunction) => {
+router.get('/', async (req: Request, res: Response, next: NextFunction) => {
     const userId = req.userId;
     try{
         const response = await pool.query("SELECT * FROM sessions WHERE user_id = $1", [userId]);
@@ -16,7 +20,7 @@ router.get('/', authMiddleware, async (req: Request, res: Response, next: NextFu
     }
 });
 
-router.get('/:id', authMiddleware, async (req: Request, res: Response, next: NextFunction) => {
+router.get('/:id', async (req: Request, res: Response, next: NextFunction) => {
     const sessionId = req.params.id;
     const userId = req.userId;
     try{
