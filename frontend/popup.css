@@ -44,7 +44,7 @@ header {
 }
 
 header h1 {
-  font-size: 34px;
+  font-size: 36px;
   font-weight: 800;
   color: #6d4c41;
   letter-spacing: 1.5px;
@@ -71,14 +71,14 @@ header p {
 }
 
 .login-panel h2 {
-  margin-bottom: 6px;
+  margin-bottom: 7px;
   color: var(--text);
   font-size: 22px;
   font-weight: 800;
 }
 
 .login-panel p {
-  margin-bottom: 16px;
+  margin-bottom: 17px;
   color: var(--muted);
   font-size: 14px;
   line-height: 1.5;
@@ -128,7 +128,7 @@ header p {
 .timer-panel strong {
   display: block;
   color: var(--primary);
-  font-size: 30px;
+  font-size: 31px;
   font-weight: 800;
   letter-spacing: 1px;
 }
@@ -182,7 +182,7 @@ header p {
 .card h2 {
   margin-top: 0;
   color: var(--text);
-  font-size: 30px;
+  font-size: 31px;
   font-weight: 800;
 }
 
