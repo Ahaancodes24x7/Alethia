@@ -58,6 +58,7 @@ header p {
 
 .login-panel,
 .session-panel,
+.session-runner,
 .card,
 .output {
   background: var(--surface);
@@ -109,6 +110,27 @@ header p {
   color: var(--text);
   text-overflow: ellipsis;
   white-space: nowrap;
+}
+
+.session-runner {
+  margin-bottom: 22px;
+  padding: 18px;
+}
+
+.timer-panel {
+  margin-bottom: 16px;
+  padding: 14px;
+  border: 1px solid #ead9cc;
+  border-radius: 12px;
+  background: var(--surface-hover);
+}
+
+.timer-panel strong {
+  display: block;
+  color: var(--primary);
+  font-size: 30px;
+  font-weight: 800;
+  letter-spacing: 1px;
 }
 
 .cards {
@@ -174,7 +196,8 @@ label {
 }
 
 input,
-select {
+select,
+textarea {
   width: 100%;
   padding: 12px 14px;
   border: 1px solid var(--border);
@@ -186,16 +209,25 @@ select {
   transition: all 0.18s ease;
 }
 
-input::placeholder {
+textarea {
+  min-height: 110px;
+  resize: vertical;
+  line-height: 1.5;
+}
+
+input::placeholder,
+textarea::placeholder {
   color: #a0a0a0;
 }
 
 input:focus,
-select:focus {
+select:focus,
+textarea:focus {
   border-color: #c67b5c;
 }
 
-input[readonly] {
+input[readonly],
+textarea:disabled {
   color: var(--muted);
   cursor: default;
 }
@@ -208,6 +240,10 @@ select option {
   display: flex;
   gap: 12px;
   margin: 22px 0;
+}
+
+.session-buttons {
+  margin: 0;
 }
 
 button {
@@ -232,6 +268,18 @@ button:active {
   transform: translateY(1px);
 }
 
+button:disabled {
+  background: #d9cec3;
+  color: #9a8a7e;
+  cursor: not-allowed;
+  transform: none;
+}
+
+button:disabled:hover {
+  background: #d9cec3;
+  transform: none;
+}
+
 .secondary-button {
   flex: 0 0 auto;
   min-height: 42px;
@@ -244,6 +292,12 @@ button:active {
 .secondary-button:hover {
   border-color: #ddd0c2;
   background: var(--surface-hover);
+}
+
+.secondary-button:disabled {
+  border-color: var(--border);
+  background: #f1ebe3;
+  color: #b2a499;
 }
 
 .full-width-button {

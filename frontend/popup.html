@@ -16,7 +16,7 @@
     <main id="loginView" class="view">
       <section class="login-panel">
         <h2>Login</h2>
-        <p>Start a learning session with automatically generated user and session details.</p>
+        <p>Sign in first. Your session number and IDs will be generated automatically.</p>
 
         <div class="form-group">
           <label for="loginName">Name</label>
@@ -28,7 +28,7 @@
           <input id="loginEmail" type="email" placeholder="name@example.com" autocomplete="email" />
         </div>
 
-        <button id="loginButton" type="button">Login & Start Session</button>
+        <button id="loginButton" type="button">Login</button>
         <button id="bypassLoginButton" type="button" class="secondary-button full-width-button">Bypass Login</button>
       </section>
     </main>
@@ -42,95 +42,82 @@
         <button id="logoutButton" type="button" class="secondary-button">Logout</button>
       </section>
 
-    <section class="cards">
+      <section class="session-runner">
+        <div class="timer-panel">
+          <span class="session-label">Session Time</span>
+          <strong id="sessionElapsed">00:00:00</strong>
+        </div>
 
-  <div class="card">
-    <strong class="metric-title comprehension">
-  Comprehension
-</strong>
+        <div class="form-group">
+          <label for="sessionPrompt">Prompt</label>
+          <textarea id="sessionPrompt" rows="4" placeholder="Enter the learning prompt for this session"></textarea>
+        </div>
 
-    <h2>--</h2>
-  </div>
+        <section class="buttons session-buttons">
+          <button id="startSessionButton" type="button">Start Session</button>
+          <button id="endSessionButton" type="button" class="secondary-button" disabled>End Session</button>
+        </section>
+      </section>
 
-  <div class="card">
- <strong class="metric-title mastery">
-  Mastery
-</strong>
-    <h2>--</h2>
-  </div>
+      <section class="cards">
+        <div class="card">
+          <strong class="metric-title comprehension">Comprehension</strong>
+          <h2>--</h2>
+        </div>
 
-</section>
+        <div class="card">
+          <strong class="metric-title mastery">Mastery</strong>
+          <h2>--</h2>
+        </div>
+      </section>
 
-<section class="cards">
+      <section class="cards">
+        <div class="card">
+          <strong class="metric-title retention">Retention</strong>
+          <h2>--</h2>
+        </div>
 
-  <div class="card">
-    <strong class="metric-title retention">
-  Retention
-</strong>
-    <h2>--</h2>
-  </div>
+        <div class="card">
+          <strong class="metric-title fatigue">Fatigue</strong>
+          <h2>--</h2>
+        </div>
+      </section>
 
-  <div class="card">
-   <strong class="metric-title fatigue">
-  Fatigue
-</strong>
-    <h2>--</h2>
-  </div>
+      <section class="form-group">
+        <label for="sessionNumber">Session Number</label>
+        <input id="sessionNumber" type="text" readonly />
+      </section>
 
-</section>
-    
+      <section class="form-group">
+        <label for="sessionId">Session ID</label>
+        <input id="sessionId" type="text" readonly />
+      </section>
 
-    <section class="form-group">
-      <label for="sessionNumber">Session Number</label>
-      <input id="sessionNumber" type="text" readonly />
-    </section>
+      <section class="form-group">
+        <label for="userId">User ID</label>
+        <input id="userId" type="text" readonly />
+      </section>
 
-    <section class="form-group">
-      <label for="sessionId">Session ID</label>
-      <input id="sessionId" type="text" readonly />
-    </section>
+      <section class="form-group">
+        <label for="contentType">Content Type</label>
+        <input id="contentType" type="text" placeholder="Youtube / Coursera / Udemy" />
+      </section>
 
-    <section class="form-group">
-      <label for="userId">User ID</label>
-      <input id="userId" type="text" readonly />
-    </section>
+      <section class="form-group">
+        <label for="mode">Mode</label>
+        <select id="mode">
+          <option value="learning">learning</option>
+          <option value="assessment">assessment</option>
+        </select>
+      </section>
 
-    <section class="form-group">
-      <label for="contentType">Content Type</label>
-      <input id="contentType" type="text" placeholder="Youtube / Coursera / Udemy" />
-    </section>
+      <section class="buttons">
+        <button id="sendButton" type="button">Analyze Understanding</button>
+      </section>
 
-    <section class="form-group">
-      <label for="contentId">Content ID</label>
-      <input id="contentId" type="text" placeholder="content_001" />
-    </section>
-
-    <section class="form-group">
-      <label for="mode">Mode</label>
-      <select id="mode">
-        <option value="learning">learning</option>
-        <option value="assessment">assessment</option>
-      </select>
-    </section>
-
-
-
-    <section class="buttons">
-      <button id="captureButton">Capture Learning Signals</button>
-      <button id="sendButton">Analyze Understanding</button>
-    </section>
-
-    <section class="output">
-      <pre id="output">
-Awaiting telemetry capture...
-
-• Learning Signals
-• Understanding Metrics
-• AI Analysis
-
-Ready.
-</pre>
-    </section>
+      <section class="output">
+        <pre id="output">Login, enter a prompt, then start a session.</pre>
+      </section>
     </main>
   </div>
 

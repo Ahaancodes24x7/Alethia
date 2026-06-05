@@ -1,4 +1,5 @@
-const pageTelemetry = {
+function createPageTelemetry() {
+  return {
   events: [],
   counts: {
     cursor: 0,
@@ -63,8 +64,20 @@ const pageTelemetry = {
     idleSessions: [],
   },
 };
+}
+
+let pageTelemetry = createPageTelemetry();
+let telemetryActive = false;
+let telemetryStartedAt = null;
+let telemetryEndedAt = null;
+let activeSessionMeta = null;
+let stoppedSnapshot = null;
 
 function recordEvent(type, payload = {}) {
+  if (!telemetryActive) {
+    return;
+  }
+
   pageTelemetry.events.push({
     event_type: type,
     timestamp: Date.now(),
@@ -77,6 +90,10 @@ function recordEvent(type, payload = {}) {
 }
 
 function addCursorPoint(x, y) {
+  if (!telemetryActive) {
+    return;
+  }
+
   const now = Date.now();
   const nextPoint = { x, y, t: now };
   const previous = pageTelemetry.cursor.lastPoint;
@@ -93,6 +110,10 @@ function addCursorPoint(x, y) {
 }
 
 function handleScroll() {
+  if (!telemetryActive) {
+    return;
+  }
+
   const position = window.scrollY;
   const delta = position - pageTelemetry.scroll.lastPosition;
   const direction = Math.sign(delta);
@@ -109,6 +130,10 @@ function handleScroll() {
 }
 
 function handleKeydown(event) {
+  if (!telemetryActive) {
+    return;
+  }
+
   const now = Date.now();
   const key = event.key;
   pageTelemetry.typing.keyDownMap[key] = now;
@@ -138,6 +163,10 @@ function handleKeydown(event) {
 }
 
 function handleKeyup(event) {
+  if (!telemetryActive) {
+    return;
+  }
+
   const now = Date.now();
   const key = event.key;
   const downTime = pageTelemetry.typing.keyDownMap[key];
@@ -149,6 +178,10 @@ function handleKeyup(event) {
 }
 
 function handleVisibilityChange() {
+  if (!telemetryActive) {
+    return;
+  }
+
   const now = Date.now();
   if (document.hidden) {
     pageTelemetry.counts.tab_switch += 1;
@@ -185,8 +218,16 @@ function attachVideoListeners(vid) {
   vid.dataset.__telemetryId = id;
   pageTelemetry.video.perVideo[id] = pageTelemetry.video.perVideo[id] || { lastTime: 0, rewinds: 0, pauses: 0 };
 
+  if (vid.dataset.__telemetryAttached === "true") {
+    return;
+  }
+
+  vid.dataset.__telemetryAttached = "true";
+
   vid.addEventListener('seeking', () => {
+    if (!telemetryActive) return;
     try {
+      pageTelemetry.video.perVideo[id] = pageTelemetry.video.perVideo[id] || { lastTime: 0, rewinds: 0, pauses: 0 };
       const prev = pageTelemetry.video.perVideo[id].lastTime || vid.currentTime;
       const curr = vid.currentTime;
       pageTelemetry.video.perVideo[id].lastTime = curr;
@@ -200,6 +241,8 @@ function attachVideoListeners(vid) {
   });
 
   vid.addEventListener('pause', () => {
+    if (!telemetryActive) return;
+    pageTelemetry.video.perVideo[id] = pageTelemetry.video.perVideo[id] || { lastTime: 0, rewinds: 0, pauses: 0 };
     pageTelemetry.video.pauseCount += 1;
     pageTelemetry.video.perVideo[id].pauses = (pageTelemetry.video.perVideo[id].pauses || 0) + 1;
     pageTelemetry.video.recentActions.push({ type: 'pause', t: Date.now(), videoId: id, at: vid.currentTime });
@@ -207,6 +250,7 @@ function attachVideoListeners(vid) {
   });
 
   vid.addEventListener('play', () => {
+    if (!telemetryActive) return;
     // if a rewind was immediately followed by play, call it a replay behavior
     const last = pageTelemetry.video.recentActions[pageTelemetry.video.recentActions.length - 1];
     if (last && last.type === 'rewind' && Date.now() - last.t < 5000) {
@@ -235,15 +279,33 @@ videoObserver.observe(document, { childList: true, subtree: true });
 scanAndAttachVideos();
 
 // Copy/Paste detection
-window.addEventListener('copy', (e) => { pageTelemetry.counts.copy += 1; recordEvent('copy', {}); });
-window.addEventListener('paste', (e) => { pageTelemetry.counts.paste += 1; recordEvent('paste', {}); });
+window.addEventListener('copy', () => {
+  if (!telemetryActive) return;
+  pageTelemetry.counts.copy += 1;
+  recordEvent('copy', {});
+});
+window.addEventListener('paste', () => {
+  if (!telemetryActive) return;
+  pageTelemetry.counts.paste += 1;
+  recordEvent('paste', {});
+});
 
 // Mouse click / double click
-window.addEventListener('click', (e) => { pageTelemetry.counts.mouse_click += 1; pageTelemetry.counts.mouse_click = pageTelemetry.counts.mouse_click; recordEvent('mouse_click', { x: e.clientX, y: e.clientY, tag: e.target.tagName }); });
-window.addEventListener('dblclick', (e) => { pageTelemetry.counts.double_click += 1; recordEvent('double_click', { x: e.clientX, y: e.clientY, tag: e.target.tagName }); });
+window.addEventListener('click', (e) => {
+  if (!telemetryActive) return;
+  pageTelemetry.counts.mouse_click += 1;
+  recordEvent('mouse_click', { x: e.clientX, y: e.clientY, tag: e.target.tagName });
+});
+window.addEventListener('dblclick', (e) => {
+  if (!telemetryActive) return;
+  pageTelemetry.counts.double_click += 1;
+  recordEvent('double_click', { x: e.clientX, y: e.clientY, tag: e.target.tagName });
+});
 
 // Simple quiz/button heuristics
 window.addEventListener('click', (e) => {
+  if (!telemetryActive) return;
+
   try {
     const el = e.target;
     const text = (el.innerText || el.textContent || '').toLowerCase();
@@ -277,6 +339,10 @@ window.addEventListener('click', (e) => {
 // Idle detection
 const IDLE_THRESHOLD = 60000; // 1 minute
 function markActive() {
+  if (!telemetryActive) {
+    return;
+  }
+
   pageTelemetry.idle.lastActive = Date.now();
   if (pageTelemetry.idle.isIdle) {
     pageTelemetry.idle.isIdle = false;
@@ -288,6 +354,10 @@ function markActive() {
 }
 
 function checkIdle() {
+  if (!telemetryActive) {
+    return;
+  }
+
   const now = Date.now();
   if (!pageTelemetry.idle.isIdle && now - pageTelemetry.idle.lastActive > IDLE_THRESHOLD) {
     pageTelemetry.idle.isIdle = true;
@@ -300,6 +370,10 @@ function checkIdle() {
 setInterval(checkIdle, 2000);
 
 function handleWindowBlur() {
+  if (!telemetryActive) {
+    return;
+  }
+
   recordEvent("focus_loss", { reason: "window_blur" });
   pageTelemetry.focus.blurCount += 1;
   pageTelemetry.focus.currentState = "hidden";
@@ -309,6 +383,10 @@ function handleWindowBlur() {
 }
 
 function handleWindowFocus() {
+  if (!telemetryActive) {
+    return;
+  }
+
   recordEvent("focus_gain", { reason: "window_focus" });
   pageTelemetry.focus.focusCount += 1;
   pageTelemetry.focus.currentState = "visible";
@@ -332,12 +410,12 @@ async function buildTelemetrySnapshot() {
     });
   });
 
-  const now = Date.now();
+  const now = telemetryEndedAt || Date.now();
   const activeTimeMs = pageTelemetry.cursor.points.length > 1
     ? pageTelemetry.cursor.points[pageTelemetry.cursor.points.length - 1].t - pageTelemetry.cursor.points[0].t
     : 0;
 
-  const sessionStart = pageTelemetry.events.length ? pageTelemetry.events[0].timestamp : now;
+  const sessionStart = telemetryStartedAt || (pageTelemetry.events.length ? pageTelemetry.events[0].timestamp : now);
   const sessionDurationMs = now - sessionStart;
   const sessionMinutes = Math.max(0.001, sessionDurationMs / 60000);
 
@@ -348,19 +426,11 @@ async function buildTelemetrySnapshot() {
 
   const video_rewind_density = Math.round((videoRewindCount / sessionMinutes) * 100) / 100; // rewinds per minute
   const pause_density = Math.round((videoPauseCount / sessionMinutes) * 100) / 100; // pauses per minute
+  const conceptConfusionCount = pageTelemetry.quiz.hintClickCount
+    + pageTelemetry.typing.correctionBurstCount
+    + videoRewindCount;
 
-  // concept_confusion heuristic: bursts of rewinds/pauses (>=3) within 30s windows
-  let concept_confusion_count = 0;
-  try {
-    const times = (pageTelemetry.video.recentActions || []).map(a => a.t).sort((a, b) => a - b);
-    let i = 0;
-    while (i < times.length) {
-      let j = i + 1;
-      while (j < times.length && times[j] - times[i] <= 30000) j++;
-      if (j - i >= 3) concept_confusion_count += 1;
-      i = j;
-    }
-  } catch (e) { concept_confusion_count = 0; }
+  
 
   // idle summary
   let totalIdleMs = 0;
@@ -372,7 +442,10 @@ async function buildTelemetrySnapshot() {
   }
 
   return {
-    mode: document.hidden ? "learning" : "learning",
+    mode: activeSessionMeta?.mode || "learning",
+    prompt: activeSessionMeta?.prompt || "",
+    session_started_at: telemetryStartedAt,
+    session_ended_at: telemetryEndedAt,
     modality_coverage: ["cursor", "scroll", "typing", "focus", "video", "external"],
     feature_summary: {
       cursor_move_count: pageTelemetry.counts.cursor,
@@ -394,15 +467,13 @@ async function buildTelemetrySnapshot() {
       external_tab_open_count: externalResponse.external_tab_open_count || 0,
       external_tab_close_count: externalResponse.external_tab_close_count || 0,
       session_duration_ms: sessionDurationMs,
-
-      // newly added fields
       video_rewind_count: videoRewindCount,
       video_pause_count: videoPauseCount,
       video_replay_count: videoReplayCount,
       video_rewind_density: video_rewind_density,
       pause_density: pause_density,
       replay_behavior_count: videoReplayCount,
-      concept_confusion_count: concept_confusion_count,
+      concept_confusion_count: conceptConfusionCount,
       tab_switch_count: pageTelemetry.counts.tab_switch,
       current_domain: window.location.hostname,
       page_title: document.title || '',
@@ -440,7 +511,81 @@ window.addEventListener("visibilitychange", handleVisibilityChange);
 window.addEventListener("blur", handleWindowBlur);
 window.addEventListener("focus", handleWindowFocus);
 
+function beginTelemetrySession(session = {}) {
+  pageTelemetry = createPageTelemetry();
+  telemetryActive = true;
+  telemetryStartedAt = Date.now();
+  telemetryEndedAt = null;
+  activeSessionMeta = {
+    ...session,
+    started_at: telemetryStartedAt,
+  };
+  stoppedSnapshot = null;
+
+  pageTelemetry.scroll.lastPosition = window.scrollY || 0;
+  pageTelemetry.focus.lastHiddenTime = document.hidden ? telemetryStartedAt : null;
+  pageTelemetry.focus.currentState = document.hidden ? "hidden" : "visible";
+  pageTelemetry.idle.lastActive = telemetryStartedAt;
+
+  scanAndAttachVideos();
+  recordEvent("session_start", {
+    session_id: session.session_id,
+    session_number: session.session_number,
+  });
+  chrome.runtime.sendMessage({ type: "startExternalTelemetrySession" });
+
+  return {
+    status: "started",
+    started_at: telemetryStartedAt,
+  };
+}
+
+async function finishTelemetrySession() {
+  if (stoppedSnapshot) {
+    return {
+      status: "ended",
+      ended_at: telemetryEndedAt,
+      snapshot: stoppedSnapshot,
+    };
+  }
+
+  if (!telemetryActive) {
+    return {
+      status: "not-recording",
+      ended_at: telemetryEndedAt,
+      snapshot: await buildTelemetrySnapshot(),
+    };
+  }
+
+  telemetryEndedAt = Date.now();
+  recordEvent("session_end", {
+    session_id: activeSessionMeta?.session_id,
+    ended_at: telemetryEndedAt,
+  });
+  telemetryActive = false;
+  stoppedSnapshot = await buildTelemetrySnapshot();
+  chrome.runtime.sendMessage({ type: "stopExternalTelemetrySession" });
+
+  return {
+    status: "ended",
+    ended_at: telemetryEndedAt,
+    snapshot: stoppedSnapshot,
+  };
+}
+
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
+  if (message?.type === "startTelemetrySession") {
+    sendResponse(beginTelemetrySession(message.session || {}));
+    return false;
+  }
+
+  if (message?.type === "stopTelemetrySession") {
+    finishTelemetrySession().then((result) => {
+      sendResponse(result);
+    });
+    return true;
+  }
+
   if (message?.type === "getTelemetrySnapshot") {
     buildTelemetrySnapshot().then((snapshot) => {
       sendResponse(snapshot);
