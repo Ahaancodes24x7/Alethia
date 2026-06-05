@@ -139,6 +139,9 @@ header p {
   gap: 14px;
   margin-bottom: 22px;
 }
+.single-card {
+  grid-template-columns: 1fr;
+}
 
 .card {
   padding: 18px;
