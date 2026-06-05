@@ -124,13 +124,13 @@ export async function finishSession(
             }
             const { userId, prompt, startTime }: CacheEntry = JSON.parse(result);
             try{
-               /* const result = await pool.query(
+               const result = await pool.query(
                     "INSERT INTO sessions (id, user_id, prompt, start_time, end_time, report) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *",
                     [sessionId, userId, prompt, startTime, new Date(), data.report]
                 );
-                const returnResponse = JSON.stringify(result.rows[0]);*/
+                const returnResponse = JSON.stringify(result.rows[0]);
                 redis.del(sessionId);
-                res.write(`data: completed\n\n`);
+                res.write(`data: ${returnResponse}\n\n`);
                 res.end()
             } catch (err) {
                 console.error(err);

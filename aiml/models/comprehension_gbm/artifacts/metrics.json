@@ -10,7 +10,7 @@
     "mean": 0.582858180724458,
     "std": 0.1717734746967785
   },
-  "training_time_seconds": 3.2954,
+  "training_time_seconds": 2.5525,
   "dataset_size": 20000,
   "train_size": 16000,
   "test_size": 4000,

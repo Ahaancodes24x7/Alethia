@@ -1,343 +1,343 @@
 [
   {
     "feature": "typing_iki_mean_ms",
-    "importance": 0.4519360065460205
+    "importance": 0.4341132640838623
   },
   {
     "feature": "typing_iki_std_ms",
-    "importance": 0.08824437856674194
+    "importance": 0.08651284128427505
   },
   {
     "feature": "typing_dwell_time_mean_ms",
-    "importance": 0.0663665384054184
+    "importance": 0.07657752931118011
   },
   {
     "feature": "fatigue_proxy",
-    "importance": 0.03175733610987663
+    "importance": 0.042162563651800156
   },
   {
     "feature": "typing_rhythm_entropy",
-    "importance": 0.019158942624926567
+    "importance": 0.021604597568511963
   },
   {
     "feature": "typing_long_pause_rate",
-    "importance": 0.014794313348829746
-  },
-  {
-    "feature": "typing_dwell_time_std_ms",
-    "importance": 0.01337598916143179
+    "importance": 0.016268907114863396
   },
   {
     "feature": "quiz_score",
-    "importance": 0.01312293205410242
+    "importance": 0.013894421048462391
   },
   {
     "feature": "typing_flight_time_mean_ms",
-    "importance": 0.012368357740342617
+    "importance": 0.012424738146364689
   },
   {
-    "feature": "focus_idle_ratio",
-    "importance": 0.01103394664824009
+    "feature": "typing_dwell_time_std_ms",
+    "importance": 0.011522749438881874
   },
   {
     "feature": "typing_flight_time_std_ms",
-    "importance": 0.00900612398982048
+    "importance": 0.010122023522853851
+  },
+  {
+    "feature": "focus_idle_ratio",
+    "importance": 0.009747260250151157
   },
   {
     "feature": "quiz_first_attempt_accuracy",
-    "importance": 0.0075669065117836
-  },
-  {
-    "feature": "typing_iki_cv",
-    "importance": 0.007233225274831057
+    "importance": 0.009084951132535934
   },
   {
     "feature": "video_pause_duration_mean_s",
-    "importance": 0.006437093485146761
+    "importance": 0.007119557820260525
   },
   {
-    "feature": "scroll_revisit_rate",
-    "importance": 0.006240390241146088
-  },
-  {
-    "feature": "quiz_confidence_mean",
-    "importance": 0.006229480728507042
-  },
-  {
-    "feature": "scroll_reversal_rate",
-    "importance": 0.005899177864193916
-  },
-  {
-    "feature": "focus_return_latency_mean_s",
-    "importance": 0.0058069657534360886
+    "feature": "typing_iki_cv",
+    "importance": 0.006384421605616808
   },
   {
     "feature": "video_rewind_density",
-    "importance": 0.005324896425008774
+    "importance": 0.006227406673133373
   },
   {
-    "feature": "retention_risk_proxy",
-    "importance": 0.00517465453594923
+    "feature": "quiz_confidence_mean",
+    "importance": 0.0057320245541632175
   },
   {
-    "feature": "focus_rapid_tab_switch_rate",
-    "importance": 0.004994402639567852
+    "feature": "focus_return_latency_mean_s",
+    "importance": 0.005558628588914871
   },
   {
-    "feature": "scroll_velocity_std_px_s",
-    "importance": 0.004727048799395561
-  },
-  {
-    "feature": "typing_speed_cpm",
-    "importance": 0.004715209361165762
-  },
-  {
-    "feature": "scroll_reversal_depth_mean_px",
-    "importance": 0.00467638811096549
-  },
-  {
-    "feature": "scroll_linear_reading_ratio",
-    "importance": 0.0046007889322936535
-  },
-  {
-    "feature": "typing_acceleration",
-    "importance": 0.004556161817163229
-  },
-  {
-    "feature": "scroll_reading_coverage",
-    "importance": 0.004476125817745924
-  },
-  {
-    "feature": "quiz_confidence_mismatch",
-    "importance": 0.004462367855012417
-  },
-  {
-    "feature": "video_effective_watch_ratio",
-    "importance": 0.004408414009958506
-  },
-  {
-    "feature": "video_rewind_distance_mean_s",
-    "importance": 0.004237750079482794
-  },
-  {
-    "feature": "scroll_reading_speed_wpm_estimate",
-    "importance": 0.004183522425591946
+    "feature": "scroll_revisit_rate",
+    "importance": 0.005546486005187035
   },
   {
     "feature": "video_slowdown_ratio",
-    "importance": 0.0041394964791834354
+    "importance": 0.00523539911955595
   },
   {
-    "feature": "focus_active_engagement_ratio",
-    "importance": 0.0040787444449961185
+    "feature": "scroll_reversal_depth_mean_px",
+    "importance": 0.005186180584132671
   },
   {
-    "feature": "multi_modal_confusion_score",
-    "importance": 0.0040279291570186615
+    "feature": "video_effective_watch_ratio",
+    "importance": 0.005007872823625803
   },
   {
-    "feature": "video_same_segment_replay_count",
-    "importance": 0.004006261471658945
+    "feature": "scroll_reversal_rate",
+    "importance": 0.004874538630247116
   },
   {
     "feature": "concept_loop_score",
-    "importance": 0.003950523212552071
+    "importance": 0.004825456067919731
   },
   {
-    "feature": "focus_idle_bout_count",
-    "importance": 0.0038723917677998543
+    "feature": "video_rewind_distance_mean_s",
+    "importance": 0.004763750825077295
+  },
+  {
+    "feature": "typing_speed_cpm",
+    "importance": 0.00475061871111393
   },
   {
     "feature": "focus_loss_ratio",
-    "importance": 0.003756614401936531
+    "importance": 0.004701842553913593
   },
   {
-    "feature": "quiz_answer_change_rate",
-    "importance": 0.0035766714718192816
+    "feature": "multi_modal_confusion_score",
+    "importance": 0.004680706188082695
+  },
+  {
+    "feature": "focus_rapid_tab_switch_rate",
+    "importance": 0.0045727454125881195
+  },
+  {
+    "feature": "typing_acceleration",
+    "importance": 0.0045488025061786175
+  },
+  {
+    "feature": "scroll_velocity_std_px_s",
+    "importance": 0.0044657695107162
+  },
+  {
+    "feature": "scroll_linear_reading_ratio",
+    "importance": 0.004410094115883112
   },
   {
     "feature": "video_forward_skip_density",
-    "importance": 0.0035162747371941805
+    "importance": 0.004057461395859718
   },
   {
-    "feature": "focus_mean_loss_duration_s",
-    "importance": 0.003499507438391447
-  },
-  {
-    "feature": "engagement_deviation",
-    "importance": 0.0034950166009366512
-  },
-  {
-    "feature": "video_forward_skip_distance_mean_s",
-    "importance": 0.003480124520137906
-  },
-  {
-    "feature": "focus_loss_total_duration_s",
-    "importance": 0.003467089030891657
-  },
-  {
-    "feature": "scroll_dwell_time_mean_s",
-    "importance": 0.00339701515622437
-  },
-  {
-    "feature": "focus_return_latency_std_s",
-    "importance": 0.003361507784575224
-  },
-  {
-    "feature": "confidence_gap",
-    "importance": 0.003320802701637149
-  },
-  {
-    "feature": "behavioral_instability_index",
-    "importance": 0.0032976127695292234
-  },
-  {
-    "feature": "focus_max_loss_duration_s",
-    "importance": 0.0032387918327003717
-  },
-  {
-    "feature": "typing_pause_before_typing_ms",
-    "importance": 0.003235334064811468
-  },
-  {
-    "feature": "typing_correction_burst_rate",
-    "importance": 0.0032123166602104902
-  },
-  {
-    "feature": "scroll_concept_loop_count",
-    "importance": 0.003184347879141569
-  },
-  {
-    "feature": "external_llm_time_ratio",
-    "importance": 0.003175752004608512
-  },
-  {
-    "feature": "quiz_time_to_answer_mean_s",
-    "importance": 0.0031526312232017517
-  },
-  {
-    "feature": "external_reference_site_count",
-    "importance": 0.003122433554381132
-  },
-  {
-    "feature": "quiz_confidence_accuracy_correlation",
-    "importance": 0.0030861191917210817
-  },
-  {
-    "feature": "video_segment_coverage",
-    "importance": 0.003062359755858779
-  },
-  {
-    "feature": "unproductive_struggle_score",
-    "importance": 0.0030455337837338448
-  },
-  {
-    "feature": "quiz_time_to_first_action_s",
-    "importance": 0.003024111734703183
+    "feature": "video_same_segment_replay_count",
+    "importance": 0.004033681470900774
   },
   {
     "feature": "video_completion_ratio",
-    "importance": 0.002996934810653329
+    "importance": 0.004020472522825003
   },
   {
-    "feature": "typing_correction_burst_length_mean",
-    "importance": 0.0029814846348017454
+    "feature": "scroll_reading_speed_wpm_estimate",
+    "importance": 0.003934978507459164
   },
   {
-    "feature": "video_pause_density",
-    "importance": 0.0029440694488584995
+    "feature": "focus_idle_bout_count",
+    "importance": 0.0037911965046077967
   },
   {
-    "feature": "quiz_time_to_answer_std_s",
-    "importance": 0.002940581412985921
+    "feature": "scroll_concept_loop_count",
+    "importance": 0.0037633327301591635
   },
   {
-    "feature": "productive_struggle_score",
-    "importance": 0.002932436764240265
+    "feature": "retention_risk_proxy",
+    "importance": 0.003729745978489518
   },
   {
-    "feature": "quiz_hint_request_rate",
-    "importance": 0.0028822587337344885
-  },
-  {
-    "feature": "video_speed_change_count",
-    "importance": 0.0028768922202289104
-  },
-  {
-    "feature": "quiz_max_hint_level_used",
-    "importance": 0.0028730654157698154
-  },
-  {
-    "feature": "external_search_reference_count",
-    "importance": 0.002799712121486664
-  },
-  {
-    "feature": "external_reference_count",
-    "importance": 0.002757280832156539
-  },
-  {
-    "feature": "quiz_time_to_answer_cv",
-    "importance": 0.0027125116903334856
-  },
-  {
-    "feature": "external_time_ratio",
-    "importance": 0.0027101105079054832
-  },
-  {
-    "feature": "scroll_dwell_time_variance_s",
-    "importance": 0.0026627425104379654
-  },
-  {
-    "feature": "external_mean_duration_s",
-    "importance": 0.0026587662287056446
-  },
-  {
-    "feature": "video_speedup_ratio",
-    "importance": 0.002638349076732993
-  },
-  {
-    "feature": "external_before_answer_rate",
-    "importance": 0.002497863955795765
-  },
-  {
-    "feature": "typing_error_correction_ratio",
-    "importance": 0.002468246966600418
-  },
-  {
-    "feature": "external_help_seeking_index",
-    "importance": 0.0024238598998636007
-  },
-  {
-    "feature": "typing_backspace_rate",
-    "importance": 0.002388673136010766
-  },
-  {
-    "feature": "quiz_abandonment_rate",
-    "importance": 0.002356737619265914
-  },
-  {
-    "feature": "focus_loss_count",
-    "importance": 0.0023122329730540514
-  },
-  {
-    "feature": "scroll_velocity_mean_px_s",
-    "importance": 0.002312159165740013
-  },
-  {
-    "feature": "personal_drift_zscore",
-    "importance": 0.0022413453552871943
-  },
-  {
-    "feature": "quiz_hint_dependency_ratio",
-    "importance": 0.0020289591047912836
-  },
-  {
-    "feature": "external_llm_reference_count",
-    "importance": 0.0014865431003272533
+    "feature": "scroll_dwell_time_mean_s",
+    "importance": 0.003706716001033783
   },
   {
     "feature": "scroll_section_skip_count",
-    "importance": 0.0012170897098258138
+    "importance": 0.0035386590752750635
+  },
+  {
+    "feature": "focus_return_latency_std_s",
+    "importance": 0.0035174787044525146
+  },
+  {
+    "feature": "scroll_reading_coverage",
+    "importance": 0.003508281661197543
+  },
+  {
+    "feature": "behavioral_instability_index",
+    "importance": 0.003414629492908716
+  },
+  {
+    "feature": "quiz_answer_change_rate",
+    "importance": 0.0033695101737976074
+  },
+  {
+    "feature": "external_reference_count",
+    "importance": 0.0033097423147410154
+  },
+  {
+    "feature": "quiz_hint_request_rate",
+    "importance": 0.003228298854082823
+  },
+  {
+    "feature": "quiz_confidence_mismatch",
+    "importance": 0.0031885700300335884
+  },
+  {
+    "feature": "focus_max_loss_duration_s",
+    "importance": 0.0031716031953692436
+  },
+  {
+    "feature": "focus_loss_total_duration_s",
+    "importance": 0.0031343100126832724
+  },
+  {
+    "feature": "external_before_answer_rate",
+    "importance": 0.003112640930339694
+  },
+  {
+    "feature": "video_pause_density",
+    "importance": 0.003106713993474841
+  },
+  {
+    "feature": "typing_pause_before_typing_ms",
+    "importance": 0.003101733746007085
+  },
+  {
+    "feature": "personal_drift_zscore",
+    "importance": 0.003034948604181409
+  },
+  {
+    "feature": "external_llm_time_ratio",
+    "importance": 0.0029946472495794296
+  },
+  {
+    "feature": "quiz_confidence_accuracy_correlation",
+    "importance": 0.0029357674065977335
+  },
+  {
+    "feature": "video_segment_coverage",
+    "importance": 0.0029012104496359825
+  },
+  {
+    "feature": "video_forward_skip_distance_mean_s",
+    "importance": 0.00286513171158731
+  },
+  {
+    "feature": "focus_mean_loss_duration_s",
+    "importance": 0.0028613442555069923
+  },
+  {
+    "feature": "scroll_dwell_time_variance_s",
+    "importance": 0.0028422537725418806
+  },
+  {
+    "feature": "quiz_max_hint_level_used",
+    "importance": 0.002839733147993684
+  },
+  {
+    "feature": "quiz_time_to_answer_std_s",
+    "importance": 0.002743768971413374
+  },
+  {
+    "feature": "scroll_velocity_mean_px_s",
+    "importance": 0.0027288473211228848
+  },
+  {
+    "feature": "quiz_time_to_answer_cv",
+    "importance": 0.0027031172066926956
+  },
+  {
+    "feature": "engagement_deviation",
+    "importance": 0.0027004415169358253
+  },
+  {
+    "feature": "quiz_time_to_answer_mean_s",
+    "importance": 0.002669239416718483
+  },
+  {
+    "feature": "typing_error_correction_ratio",
+    "importance": 0.0026691467501223087
+  },
+  {
+    "feature": "productive_struggle_score",
+    "importance": 0.002661964390426874
+  },
+  {
+    "feature": "typing_correction_burst_rate",
+    "importance": 0.002651676768437028
+  },
+  {
+    "feature": "external_mean_duration_s",
+    "importance": 0.0026136667001992464
+  },
+  {
+    "feature": "focus_active_engagement_ratio",
+    "importance": 0.0026009303983300924
+  },
+  {
+    "feature": "typing_backspace_rate",
+    "importance": 0.0025345769245177507
+  },
+  {
+    "feature": "external_search_reference_count",
+    "importance": 0.0024910338688641787
+  },
+  {
+    "feature": "focus_loss_count",
+    "importance": 0.00244800909422338
+  },
+  {
+    "feature": "quiz_time_to_first_action_s",
+    "importance": 0.0024325924459844828
+  },
+  {
+    "feature": "video_speed_change_count",
+    "importance": 0.0024139301385730505
+  },
+  {
+    "feature": "typing_correction_burst_length_mean",
+    "importance": 0.0024098313879221678
+  },
+  {
+    "feature": "external_reference_site_count",
+    "importance": 0.002406076295301318
+  },
+  {
+    "feature": "external_time_ratio",
+    "importance": 0.002401587786152959
+  },
+  {
+    "feature": "video_speedup_ratio",
+    "importance": 0.002335498807951808
+  },
+  {
+    "feature": "unproductive_struggle_score",
+    "importance": 0.0022530031856149435
+  },
+  {
+    "feature": "external_help_seeking_index",
+    "importance": 0.0020758493337780237
+  },
+  {
+    "feature": "external_llm_reference_count",
+    "importance": 0.0020725957583636045
+  },
+  {
+    "feature": "quiz_abandonment_rate",
+    "importance": 0.0017877862555906177
+  },
+  {
+    "feature": "confidence_gap",
+    "importance": 0.0017805148381739855
+  },
+  {
+    "feature": "quiz_hint_dependency_ratio",
+    "importance": 0.0017712484113872051
   },
   {
     "feature": "focus_context_flag",

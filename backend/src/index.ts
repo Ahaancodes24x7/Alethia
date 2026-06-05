@@ -33,7 +33,8 @@ const worker = new Worker("analysis", async (job) => {
             session_id: sessionId,
             events: events
         });
-        return report;
+        //const report = Math.random();
+        return report.data;
     }
     catch (error) {
         console.error("Error occurred while making API call:", error);
