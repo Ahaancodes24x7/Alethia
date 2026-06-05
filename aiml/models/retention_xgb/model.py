@@ -10,7 +10,6 @@ try:
     from xgboost import XGBRegressor
 except ImportError as exc:
     raise ImportError(
-        "XGBoost is required. Install it with `pip install xgboost`."
     ) from exc
 
 try:
@@ -38,7 +37,7 @@ class RetentionXGB:
         if X_val is not None and y_val is not None:
             fit_params["eval_set"] = [(X_val, y_val)]
             fit_params["verbose"] = 100
-            # early_stopping_rounds moved to constructor in XGBoost >= 2.0
+
             self.model.set_params(early_stopping_rounds=EARLY_STOPPING_ROUNDS)
 
         self.model.fit(X_train, y_train, **fit_params)
