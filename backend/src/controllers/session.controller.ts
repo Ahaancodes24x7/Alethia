@@ -8,7 +8,7 @@ import {eventEmitter} from "../index.js";
 type CacheEntry = {
     prompt: string;
     startTime: Date;
-    duration: number | string;
+    duration: number;
     userId: string;
     events: any[];
 }
@@ -39,8 +39,8 @@ export async function createSession(req: Request,res: Response) {
         "events": []
     }
     
-    await redis.set(sessionId, JSON.stringify(currentSession));
-    await redis.set(`active:${userId}`, sessionId);
+    await redis.set(sessionId, JSON.stringify(currentSession), "EX", sessionDuration*60+1000);
+    await redis.set(`active:${userId}`, sessionId, "EX", sessionDuration*60+1000);
 
     return res.status(201).json({
         message: "Session created",
