@@ -16,7 +16,7 @@ try:
         TEST_SIZE,
     )
 except ImportError:
-    from config import (  # type: ignore
+    from .config import (  # type: ignore
         DATASET_PATH,
         METADATA_COLUMNS,
         MIN_FEATURE_COUNT,
