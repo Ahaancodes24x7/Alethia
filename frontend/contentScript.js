@@ -125,7 +125,13 @@ function handleScroll() {
     }
     pageTelemetry.scroll.lastDirection = direction;
     pageTelemetry.scroll.lastPosition = position;
-    recordEvent("scroll", { position, delta });
+    recordEvent("scroll", {
+      position,
+      delta,
+      scroll_y: position,
+      delta_y: delta,
+      document_height: Math.max(document.documentElement.scrollHeight, document.body.scrollHeight, 1),
+    });
   }
 }
 
@@ -159,7 +165,10 @@ function handleKeydown(event) {
     pageTelemetry.typing.burstLength = 0;
   }
 
-  recordEvent("keydown", { key });
+  recordEvent("keydown", {
+    key,
+    key_category: key === "Backspace" || key === "Delete" ? "backspace" : "character",
+  });
 }
 
 function handleKeyup(event) {
@@ -174,7 +183,10 @@ function handleKeyup(event) {
     pageTelemetry.typing.dwellTimes.push(now - downTime);
     delete pageTelemetry.typing.keyDownMap[key];
   }
-  recordEvent("keyup", { key });
+  recordEvent("keyup", {
+    key,
+    key_category: key === "Backspace" || key === "Delete" ? "backspace" : "character",
+  });
 }
 
 function handleVisibilityChange() {
@@ -235,7 +247,14 @@ function attachVideoListeners(vid) {
         pageTelemetry.video.rewindCount += 1;
         pageTelemetry.video.perVideo[id].rewinds += 1;
         pageTelemetry.video.recentActions.push({ type: 'rewind', t: Date.now(), videoId: id, from: prev, to: curr });
-        recordEvent('video_rewind', { videoId: id, from: prev, to: curr });
+        recordEvent('video_seek_backward', {
+          videoId: id,
+          from: prev,
+          to: curr,
+          from_position: prev,
+          to_position: curr,
+          duration: vid.duration || 0,
+        });
       }
     } catch (e) { /* best-effort */ }
   });
@@ -246,16 +265,31 @@ function attachVideoListeners(vid) {
     pageTelemetry.video.pauseCount += 1;
     pageTelemetry.video.perVideo[id].pauses = (pageTelemetry.video.perVideo[id].pauses || 0) + 1;
     pageTelemetry.video.recentActions.push({ type: 'pause', t: Date.now(), videoId: id, at: vid.currentTime });
-    recordEvent('video_pause', { videoId: id, at: vid.currentTime });
+    recordEvent('video_pause', {
+      videoId: id,
+      at: vid.currentTime,
+      position: vid.currentTime,
+      duration: vid.duration || 0,
+    });
   });
 
   vid.addEventListener('play', () => {
     if (!telemetryActive) return;
+    recordEvent('video_play', {
+      videoId: id,
+      position: vid.currentTime,
+      duration: vid.duration || 0,
+    });
+
     // if a rewind was immediately followed by play, call it a replay behavior
     const last = pageTelemetry.video.recentActions[pageTelemetry.video.recentActions.length - 1];
     if (last && last.type === 'rewind' && Date.now() - last.t < 5000) {
       pageTelemetry.video.replayCount += 1;
-      recordEvent('video_replay_behavior', { videoId: id });
+      recordEvent('video_position', {
+        videoId: id,
+        position: vid.currentTime,
+        duration: vid.duration || 0,
+      });
     }
   });
 }
@@ -315,7 +349,11 @@ window.addEventListener('click', (e) => {
     }
     if (/submit answer|submit|check answer|answer submit/.test(text)) {
       pageTelemetry.quiz.answerSubmitCount += 1;
-      recordEvent('answer_submit', {});
+      recordEvent('answer_submit', {
+        question_id: 'q1',
+        is_correct: false,
+        attempt_number: 1,
+      });
     }
     if (/attempt|try question|next question/.test(text)) {
       pageTelemetry.quiz.questionAttemptCount += 1;
@@ -323,14 +361,20 @@ window.addEventListener('click', (e) => {
     }
     if (/hint/.test(text)) {
       pageTelemetry.quiz.hintClickCount += 1;
-      recordEvent('hint_click', {});
+      recordEvent('hint_request', {
+        question_id: 'q1',
+        hint_level: 1,
+      });
     }
     // confidence inputs
     if (el.tagName === 'INPUT' && /confidence|self[- ]?rated/.test(el.name || el.id || '')) {
       const val = parseFloat(el.value);
       if (!Number.isNaN(val)) {
         pageTelemetry.quiz.confidenceRatings.push(val);
-        recordEvent('confidence_rating', { rating: val });
+        recordEvent('confidence_rating', {
+          question_id: 'q1',
+          rating: val,
+        });
       }
     }
   } catch (e) { /* best-effort */ }
@@ -495,8 +539,9 @@ async function buildTelemetrySnapshot() {
       external_tab_open_count: externalResponse.external_tab_open_count || 0,
       external_tab_close_count: externalResponse.external_tab_close_count || 0,
     },
+    events: pageTelemetry.events,
     recent_events: pageTelemetry.events.slice(-30),
-    note: "Connection Required: send these features to the backend for DL model scoring.",
+    note: "Telemetry captured for backend model scoring.",
   };
 }
 
