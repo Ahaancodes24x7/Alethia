@@ -28,7 +28,12 @@
           <input id="loginEmail" type="email" placeholder="name@example.com" autocomplete="email" />
         </div>
 
-        <button id="loginButton" type="button">Login</button>
+        <div class="form-group">
+          <label for="loginPassword">Password</label>
+          <input id="loginPassword" type="password" placeholder="Enter your password" autocomplete="current-password" />
+        </div>
+
+        <button id="loginButton" type="button">Login / Create Account</button>
         <button id="bypassLoginButton" type="button" class="secondary-button full-width-button">Bypass Login</button>
       </section>
     </main>
@@ -53,6 +58,11 @@
           <textarea id="sessionPrompt" rows="4" placeholder="Enter the learning prompt for this session"></textarea>
         </div>
 
+        <div class="form-group">
+          <label for="sessionDuration">Duration (minutes)</label>
+          <input id="sessionDuration" type="number" min="1" value="60" />
+        </div>
+
         <section class="buttons session-buttons">
           <button id="startSessionButton" type="button">Start Session</button>
           <button id="endSessionButton" type="button" class="secondary-button" disabled>End Session</button>
@@ -62,19 +72,19 @@
       <section class="cards single-card">
        <div class="card">
       <strong class="metric-title comprehension">Comprehension</strong>
-      <h2>--</h2>
+      <h2 id="comprehensionScore">--</h2>
       </div>
     </section>
 
       <section class="cards">
         <div class="card">
           <strong class="metric-title retention">Retention</strong>
-          <h2>--</h2>
+          <h2 id="retentionScore">--</h2>
         </div>
 
         <div class="card">
           <strong class="metric-title fatigue">Fatigue</strong>
-          <h2>--</h2>
+          <h2 id="fatigueScore">--</h2>
         </div>
       </section>
 
