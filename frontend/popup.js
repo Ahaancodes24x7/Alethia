@@ -19,65 +19,12 @@ let lastSnapshot = null;
 let currentSession = null;
 let timerId = null;
 
-const API_BASE_URL = "http://localhost:3000";
 const STORAGE_KEYS = [
   "alethiaUser",
   "alethiaAuthToken",
   "alethiaSessionCounter",
   "alethiaCurrentSession",
 ];
-
-function getAuthToken() {
-  return new Promise((resolve) => {
-    chrome.storage.local.get(["alethiaAuthToken"], ({ alethiaAuthToken }) => {
-      resolve(alethiaAuthToken || "");
-    });
-  });
-}
-
-async function apiRequest(path, options = {}) {
-  const token = await getAuthToken();
-  const headers = {
-    ...(options.body ? { "Content-Type": "application/json" } : {}),
-    ...(token ? { Authorization: token } : {}),
-    ...(options.headers || {}),
-  };
-
-  const response = await fetch(`${API_BASE_URL}${path}`, {
-    ...options,
-    headers,
-  });
-
-  if (!response.ok) {
-    throw new Error(await readErrorMessage(response));
-  }
-
-  if (options.rawResponse) {
-    return response;
-  }
-
-  return response.json();
-}
-
-async function readErrorMessage(response) {
-  const fallback = `Request failed with status ${response.status}`;
-
-  try {
-    const text = await response.text();
-    if (!text) {
-      return fallback;
-    }
-
-    try {
-      const parsed = JSON.parse(text);
-      return parsed.error || parsed.message || text;
-    } catch (error) {
-      return text;
-    }
-  } catch (error) {
-    return fallback;
-  }
-}
 
 function decodeJwtPayload(token) {
   try {
@@ -278,10 +225,7 @@ async function startRecordingSession() {
   let backendSession;
   try {
     updateOutput({ status: "creating-backend-session" });
-    backendSession = await apiRequest("/session", {
-      method: "POST",
-      body: JSON.stringify({ prompt, duration }),
-    });
+    backendSession = await createSessionRequest({ prompt, duration });
   } catch (error) {
     updateOutput({ error: "Could not create backend session.", details: error.message });
     return;
@@ -379,10 +323,7 @@ async function uploadTelemetryEvents(sessionId, snapshot) {
   const events = buildBackendEvents(snapshot);
 
   for (const event of events) {
-    await apiRequest(`/session/${sessionId}/event`, {
-      method: "POST",
-      body: JSON.stringify(event),
-    });
+    await addSessionEvent(sessionId, event);
   }
 
   return events.length;
@@ -533,55 +474,6 @@ function toSeconds(timestamp) {
   return value > 100000000000 ? value / 1000 : value;
 }
 
-function readSseData(buffer) {
-  return buffer
-    .split("\n\n")
-    .map((chunk) => chunk.trim())
-    .filter((chunk) => chunk.startsWith("data:"))
-    .map((chunk) => chunk.replace(/^data:\s*/, ""));
-}
-
-async function finishBackendSession(sessionId) {
-  const response = await apiRequest(`/session/${sessionId}/finish`, {
-    method: "GET",
-    rawResponse: true,
-  });
-
-  const reader = response.body.getReader();
-  const decoder = new TextDecoder();
-  let buffer = "";
-  let finalData = null;
-
-  while (true) {
-    const { value, done } = await reader.read();
-    if (done) {
-      break;
-    }
-
-    buffer += decoder.decode(value, { stream: true });
-    const messages = readSseData(buffer);
-    if (messages.length) {
-      finalData = messages[messages.length - 1];
-      updateOutput({ status: finalData });
-    }
-  }
-
-  buffer += decoder.decode();
-  const messages = readSseData(buffer);
-  if (messages.length) {
-    finalData = messages[messages.length - 1];
-  }
-
-  if (!finalData || ["failed", "error", "not found"].includes(finalData.toLowerCase())) {
-    throw new Error(finalData || "No analysis result returned");
-  }
-
-  try {
-    return JSON.parse(finalData);
-  } catch (error) {
-    throw new Error(finalData);
-  }
-}
 
 function formatScore(value) {
   if (value === undefined || value === null || value === "") {
@@ -661,32 +553,17 @@ async function sendToAiModel() {
     updateOutput({ status: "uploading-events" });
     const uploadedEvents = await uploadTelemetryEvents(sessionId, lastSnapshot);
     updateOutput({ status: "running-analysis", uploaded_events: uploadedEvents });
-    const result = await finishBackendSession(sessionId);
-    updateScoreCards(result);
-    updateOutput({ status: "analysis-complete", result });
-  } catch (error) {
-    updateOutput({ error: "Could not analyze session.", details: error.message });
-  } finally {
+      const result = await finishSessionRequest(sessionId);
     sendButton.disabled = Boolean(currentSession?.is_recording);
   }
 }
 
 async function loginOrCreateAccount(name, email, password) {
   try {
-    return await apiRequest("/auth/login", {
-      method: "POST",
-      body: JSON.stringify({ email, password }),
-    });
+    return await authLogin({ email, password });
   } catch (loginError) {
-    await apiRequest("/auth/signup", {
-      method: "POST",
-      body: JSON.stringify({ name, email, password }),
-    });
-
-    return apiRequest("/auth/login", {
-      method: "POST",
-      body: JSON.stringify({ email, password }),
-    });
+    await authSignup({ name, email, password });
+    return authLogin({ email, password });
   }
 }
 
