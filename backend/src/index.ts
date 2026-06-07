@@ -7,11 +7,27 @@ import {redis} from "./redis.js";
 import {Worker} from "bullmq";
 import {EventEmitter} from "events";
 import axios from "axios";
+import cors from "cors";
 
 const app = express();
 const PORT = 3000;
 
 app.use(express.json());
+
+app.use(
+    cors({
+        origin: true,
+        credentials: true
+    })
+);
+/*
+app.use(
+    cors({
+        origin: [
+            "chrome-extension://cnohhecfbmbmklpjpphamjaelifjbeoi"
+        ]
+    })
+);*/
 
 app.use('/session', sessionRouter);
 app.use('/dashboard', dashboardRouter);

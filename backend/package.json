@@ -20,9 +20,11 @@
   "homepage": "https://github.com/Ahaancodes24x7/Alethia#readme",
   "description": "",
   "dependencies": {
+    "@types/cors": "^2.8.19",
     "axios": "^1.17.0",
     "bcrypt": "^6.0.0",
     "bullmq": "^5.78.0",
+    "cors": "^2.8.6",
     "dotenv": "^17.4.2",
     "express": "^5.2.1",
     "express-validator": "^7.3.2",
